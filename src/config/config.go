@@ -1,6 +1,7 @@
 package cfg
 
 import (
+	"context"
 	"os"
 
 	"github.com/docker/docker/client"
@@ -10,6 +11,7 @@ import (
 var Cfg Config
 
 var Docker *client.Client
+var Ctx context.Context
 
 func (c *Config) Init() {
 	data, err := os.ReadFile("config/config.yaml")
