@@ -1,8 +1,9 @@
 package main
 
 import (
-	router "src/crtl/router"
+	cfg "src/config"
 	"src/minit"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,9 +11,7 @@ import (
 func main() {
 
 	var s = gin.Default()
-	minit.Init()
-	router := router.NewRouter()
-	router.RouterInit(s)
-	s.Run(":8000")
+	minit.Init(s)
+	s.Run(cfg.Cfg.Host.Ip + ":" + strconv.Itoa(cfg.Cfg.Host.Port))
 
 }

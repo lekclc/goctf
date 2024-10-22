@@ -2,12 +2,12 @@ package router
 
 import "github.com/gin-gonic/gin"
 
-type router struct{}
+type Router struct{}
 
-func NewRouter() *router {
-	return &router{}
+func NewRouter() *Router {
+	return &Router{}
 }
 
-func (r *router) RouterInit(s *gin.Engine) {
+func (r *Router) RouterInit(s *gin.Engine) {
 	r.RouterUser(s)
 }

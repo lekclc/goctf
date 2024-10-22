@@ -3,10 +3,13 @@ package cfg
 import (
 	"os"
 
+	"github.com/docker/docker/client"
 	"gopkg.in/yaml.v3"
 )
 
 var Cfg Config
+
+var Docker *client.Client
 
 func (c *Config) Init() {
 	data, err := os.ReadFile("config/config.yaml")
