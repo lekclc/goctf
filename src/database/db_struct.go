@@ -8,6 +8,7 @@ type User struct {
 	gorm.Model
 	Uname  string `gorm:"unique;not null;size:255"`
 	Passwd string `gorm:"unique;not null;size:255"`
+	Admin  bool   `gorm:"not null"`
 }
 
 type Image struct {
