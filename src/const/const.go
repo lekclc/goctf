@@ -1,7 +1,7 @@
 package con
 
 import (
-	"src/crtl/docker"
+	"src/ctrl/docker"
 	"src/database"
 )
 

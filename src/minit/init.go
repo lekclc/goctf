@@ -3,8 +3,8 @@ package minit
 import (
 	cfg "src/config"
 	con "src/const"
-	"src/crtl/docker"
-	"src/crtl/router"
+	"src/ctrl/docker"
+	"src/ctrl/router"
 	database "src/database"
 
 	"github.com/gin-gonic/gin"
