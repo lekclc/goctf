@@ -13,7 +13,18 @@ type db struct {
 	Port   int    `yaml:"port"`
 }
 
+type admin struct {
+	Uname  string `yaml:"uname"`
+	Passwd string `yaml:"passwd"`
+}
+
 type Config struct {
-	Host host `yaml:"host"`
-	Db   db   `yaml:"db"`
+	Host  host  `yaml:"host"`
+	Db    db    `yaml:"db"`
+	Admin admin `yaml:"admin"`
+}
+
+type UserInfo struct {
+	Uname string
+	Admin bool
 }

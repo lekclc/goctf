@@ -12,9 +12,16 @@ type User struct {
 }
 
 type Image struct {
-	Id int `json:"id"`
+	gorm.Model
 }
 
-type Challenge_ku struct {
-	Id int `json:"id"`
+type Challenge struct {
+	gorm.Model
+	Active  bool   `gorm:"unique;not null"`
+	ImageID uint   `gorm:"not null"`
+	Flag    string `gorm:"unique"`
+}
+
+type Game struct {
+	gorm.Model
 }

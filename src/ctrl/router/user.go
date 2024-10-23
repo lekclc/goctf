@@ -1,16 +1,13 @@
 package router
 
 import (
-	"src/api/user"
-
-	"github.com/gin-gonic/gin"
+	user_router "src/api/user"
 )
 
-func (r *Router) RouterUser(s *gin.Engine) {
-	u := user.NewUser()
-	g := s.Group("/user")
+func (r *Router) RouterUser() {
+	u := user_router.NewUser()
+	g := r.s.Group("/user")
 	g.GET("/login", u.Login)
 	g.GET("/register", u.Register)
 	g.GET("/logout", u.Logout)
-
 }

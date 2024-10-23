@@ -16,6 +16,6 @@ func Init(s *gin.Engine) {
 	con.Docker.Init()
 	con.Db = database.NewDb()
 	con.Db.Init()
-	router_ := router.NewRouter()
-	router_.RouterInit(s)
+	router_ := router.NewRouter(s)
+	router_.RouterInit()
 }
