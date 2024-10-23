@@ -2,12 +2,13 @@ package docker
 
 import (
 	"context"
-	cfg "src/config"
 
 	"github.com/docker/docker/client"
 )
 
 type Docker struct {
+	ctx context.Context
+	cl  *client.Client
 }
 
 func NewDocker() *Docker {
@@ -20,6 +21,6 @@ func (d *Docker) Init() {
 		panic(err)
 	}
 	ctx := context.Background()
-	cfg.Docker = cl
-	cfg.Ctx = ctx
+	d.ctx = ctx
+	d.cl = cl
 }
