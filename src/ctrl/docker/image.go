@@ -38,5 +38,6 @@ func (d *Docker) Pull_image(name string) {
 	}
 }
 
-func (d *Docker) Build_image() {
+func (d *Docker) Build_image(name string, path string, port map[int]int) {
+
 }

@@ -7,7 +7,7 @@ import (
 func (r *Router) RouterUser() {
 	u := user_router.NewUser()
 	g := r.s.Group("/user")
-	g.GET("/login", u.Login)
+	g.POST("/login", u.Login)
 	g.GET("/register", u.Register)
 	g.GET("/logout", u.Logout)
 }
