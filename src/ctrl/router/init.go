@@ -13,6 +13,7 @@ func NewRouter(s *gin.Engine) *Router {
 }
 
 func (r *Router) RouterInit() {
+	r.s.Use(Cors())
 	r.RouterUser()
 	r.RouterGame()
 	r.RouterChallenge()

@@ -17,11 +17,15 @@ type admin struct {
 	Uname  string `yaml:"uname"`
 	Passwd string `yaml:"passwd"`
 }
+type str struct {
+	Key string `yaml:"key"`
+}
 
 type Config struct {
 	Host  host  `yaml:"host"`
 	Db    db    `yaml:"db"`
 	Admin admin `yaml:"admin"`
+	Str   str   `yaml:"str"`
 }
 
 type UserInfo struct {

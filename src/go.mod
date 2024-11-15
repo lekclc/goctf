@@ -5,6 +5,7 @@ go 1.22.6
 require (
 	github.com/docker/docker v27.3.1+incompatible
 	github.com/gin-gonic/gin v1.10.0
+	github.com/golang-jwt/jwt/v4 v4.3.0
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.12
 )
