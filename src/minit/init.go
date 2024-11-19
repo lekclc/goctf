@@ -13,7 +13,6 @@ import (
 func Init(s *gin.Engine) {
 	cfg.Cfg.Init()
 	con.Docker = docker.NewDocker()
-	con.Docker.Init()
 	con.Db = database.NewDb()
 	con.Db.Init()
 	router_ := router.NewRouter(s)

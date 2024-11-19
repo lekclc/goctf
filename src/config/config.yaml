@@ -3,7 +3,7 @@ host:
   port: 8000
 db:
   uname:  root
-  passwd: root
+  passwd: rootroot
   dbname: ctf
   ip: 127.0.0.1
   port: 13306

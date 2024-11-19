@@ -7,3 +7,4 @@ import (
 
 var Docker *docker.Docker
 var Db *database.Db
+var SqlId string

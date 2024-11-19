@@ -5,7 +5,3 @@ type Container struct {
 	Image string
 	Port  map[int]int
 }
-
-func (c *Container) Create(ID string) {
-
-}
