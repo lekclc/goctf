@@ -15,10 +15,6 @@ func NewDocker() *Docker {
 	return &Docker{}
 }
 
-func (d *Docker) Init() {
-	d.cl, d.ctx = Get_cltx()
-}
-
 func Get_cltx() (*client.Client, context.Context) {
 	cl_, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
@@ -26,4 +22,8 @@ func Get_cltx() (*client.Client, context.Context) {
 	}
 	ctx_ := context.Background()
 	return cl_, ctx_
+}
+
+func (d *Docker) Init() {
+	d.cl, d.ctx = Get_cltx()
 }

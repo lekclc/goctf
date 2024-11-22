@@ -1,22 +1,11 @@
 package router
 
-import (
-	"src/ctrl/mid"
-
-	"github.com/gin-gonic/gin"
-)
-
-type Router struct {
-	s *gin.Engine
-}
-
-func NewRouter(s *gin.Engine) *Router {
-	return &Router{s}
-}
+import "src/ctrl/mid"
 
 func (r *Router) RouterInit() {
 	r.s.Use(mid.Cors())
 	r.RouterUser()
+	r.RouterTeam()
 	r.RouterGame()
 	r.RouterChallenge()
 }

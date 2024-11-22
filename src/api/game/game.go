@@ -1,15 +1,8 @@
 package game
 
-import "github.com/gin-gonic/gin"
-
-type Game_router struct {
+type Game struct {
 }
 
-func NewGame() *Game_router {
-	return &Game_router{}
-}
-func (s *Game_router) Game(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "game",
-	})
+func NewGame() *Game {
+	return &Game{}
 }

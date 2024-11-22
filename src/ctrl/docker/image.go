@@ -42,3 +42,7 @@ func (i *Image) Pull_image() {
 		panic(err)
 	}
 }
+
+func (i *Image) Run_image() {
+
+}

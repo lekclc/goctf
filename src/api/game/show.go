@@ -1,6 +1,6 @@
 package game
 
-func (g *Game_router) Show() {
+func (g *Game) Show() {
 	// token,username
 
 	//允许查看,返回所有的题目信息,struct

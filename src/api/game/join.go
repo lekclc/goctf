@@ -1,6 +1,6 @@
 package game
 
-func (g *Game_router) Join() {
+func (g *Game) Join() {
 	// token,username,teamname,gamename
 
 	// return yes or no
