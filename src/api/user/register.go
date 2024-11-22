@@ -16,7 +16,7 @@ func (s *User) Register(c *gin.Context) {
 		})
 		return
 	}
-	u := user_.NewUser(info.Username, info.Passwd)
+	u := user_.GetUser(info.Username, info.Passwd)
 	is, err := u.Register()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

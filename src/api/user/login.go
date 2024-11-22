@@ -16,7 +16,7 @@ func (s *User) Login(c *gin.Context) {
 			"message": "error",
 		})
 	}
-	u := user_.NewUser(info.Username, info.Passwd)
+	u := user_.GetUser(info.Username, info.Passwd)
 	is, isadmin, err := u.Login()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{

@@ -6,7 +6,7 @@ type User_ struct {
 	Admin  bool
 }
 
-func NewUser(uname string, passwd string) *User_ {
+func GetUser(uname string, passwd string) *User_ {
 	return &User_{uname, passwd, false}
 }
 
