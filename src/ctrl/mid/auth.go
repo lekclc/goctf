@@ -22,3 +22,25 @@ func AuthMid() gin.HandlerFunc {
 		c.Next()
 	}
 }
+
+func AuthAdmin() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		Jwt := utils.GetJwt(c)
+		ca, err := Jwt.GetClaims()
+		if err != nil {
+			c.JSON(401, gin.H{
+				"message": "unauthorized",
+			})
+			c.Abort()
+			return
+		}
+		if !ca.Auth {
+			c.JSON(401, gin.H{
+				"message": "unauthorized",
+			})
+			c.Abort()
+			return
+		}
+		c.Next()
+	}
+}

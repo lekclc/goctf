@@ -54,7 +54,7 @@ func (j *MJwt) GetClaims() (*Claims, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-		return []byte(cfg.Cfg.Str.Key), nil // 替换为你的密钥
+		return []byte(cfg.Cfg.Str.Key), nil
 
 	})
 	if err != nil {
