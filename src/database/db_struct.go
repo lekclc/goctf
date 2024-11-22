@@ -11,15 +11,20 @@ type User struct {
 	Admin  bool   `gorm:"not null"`
 }
 
-type Image struct {
-	gorm.Model
-}
-
 type Challenge struct {
 	gorm.Model
-	Active  bool   `gorm:"unique;not null"`
-	ImageID uint   `gorm:"not null"`
-	Flag    string `gorm:"unique"`
+	Active    bool   `gorm:"unique;not null"`
+	ImageID   uint   `gorm:"not null"`
+	ImageName string `gorm:"not null"`
+	Flag      string `gorm:"unique"`
+	File      string
+}
+
+type Container struct {
+	gorm.Model
+	ChallengeID uint   `gorm:"not null"`
+	UserID      uint   `gorm:"not null"`
+	Flag        string `gorm:"not null"`
 }
 
 type Game struct {

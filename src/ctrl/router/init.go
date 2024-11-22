@@ -1,6 +1,8 @@
 package router
 
 import (
+	"src/ctrl/mid"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,7 +15,7 @@ func NewRouter(s *gin.Engine) *Router {
 }
 
 func (r *Router) RouterInit() {
-	r.s.Use(Cors())
+	r.s.Use(mid.Cors())
 	r.RouterUser()
 	r.RouterGame()
 	r.RouterChallenge()

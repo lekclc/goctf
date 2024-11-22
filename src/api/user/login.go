@@ -16,7 +16,7 @@ func (s *User_router) Login(c *gin.Context) {
 			"message": "error",
 		})
 	}
-	u := user_.NewUser(info.Uname, info.Passwd)
+	u := user_.NewUser(info.Username, info.Passwd)
 	is, isadmin, err := u.Login()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -30,7 +30,7 @@ func (s *User_router) Login(c *gin.Context) {
 		})
 		return
 	}
-	token, err := utils.GetJwt(c).Get(isadmin)
+	token, err := utils.GetJwt(c).Get(isadmin, info.Username)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "internal server error",

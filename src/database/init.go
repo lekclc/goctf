@@ -77,9 +77,9 @@ func (db *Db) Set_db() {
 	db.Db.Exec("USE " + cfg.Cfg.Db.Dbname)
 	//创建表
 	db.Db.AutoMigrate(&User{})
-	db.Db.AutoMigrate(&Image{})
 	db.Db.AutoMigrate(&Challenge{})
 	db.Db.AutoMigrate(&Game{})
+	db.Db.AutoMigrate(&Container{})
 	var user User
 	user.Uname = cfg.Cfg.Admin.Uname
 	user.Passwd, _ = utils.Hash_passwd(cfg.Cfg.Admin.Passwd)

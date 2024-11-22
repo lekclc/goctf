@@ -16,10 +16,10 @@ func (s *User_router) Register(c *gin.Context) {
 		})
 		return
 	}
-	u := user_.NewUser(info.Uname, info.Passwd)
+	u := user_.NewUser(info.Username, info.Passwd)
 	is, err := u.Register()
 	if err != nil {
-		c.JSON(200, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "error",
 		})
 		return
@@ -30,7 +30,7 @@ func (s *User_router) Register(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusBadRequest, gin.H{
 		"message": "error",
 	})
 }
