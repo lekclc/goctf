@@ -9,7 +9,7 @@ import (
 func (s *User_) Register() (bool, error) {
 	var user database.User
 	db := con.Db.Db
-	db.Where("uname = ? ", s.Uname).First(&user)
+	db.Where("name = ? ", s.Uname).First(&user)
 	if user.ID != 0 {
 		return false, nil
 	}
@@ -17,7 +17,7 @@ func (s *User_) Register() (bool, error) {
 	if Passwd == "" {
 		return false, nil
 	}
-	user.Uname = s.Uname
+	user.Name = s.Uname
 	user.Passwd = Passwd
 	user.Admin = false
 	db.Create(&user)

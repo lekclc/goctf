@@ -1,7 +1,7 @@
 package docker
 
 type Container struct {
-	ID    string
-	Image string
-	Port  map[int]int
+	ID      string
+	Port    map[int]int
+	ImageID string
 }

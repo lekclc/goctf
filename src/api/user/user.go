@@ -6,8 +6,8 @@ func NewUser() *User {
 	return &User{}
 }
 
-type Info struct {
-	Username string `form:"username" json:"username" binding:"required"`
-	Passwd   string `form:"passwd" json:"passwd" binding:"required"`
-	Admin    bool   `form:"admin" json:"admin"`
+type UserInfo struct {
+	Name   string `form:"name" json:"name" binding:"required"`
+	Passwd string `form:"passwd" json:"passwd" binding:"required"`
+	Admin  bool   `form:"admin" json:"admin"`
 }

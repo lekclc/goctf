@@ -10,7 +10,7 @@ func (s *User_) Login() (bool, bool, error) {
 	// TODO
 	var user database.User
 	db := con.Db.Db
-	db.Where("uname = ? ", s.Uname).First(&user)
+	db.Where("name = ? ", s.Uname).First(&user)
 	if user.ID == 0 {
 		return false, false, nil
 	}

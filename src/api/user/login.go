@@ -9,14 +9,14 @@ import (
 )
 
 func (s *User) Login(c *gin.Context) {
-	var info Info
+	var info UserInfo
 	err := c.ShouldBind(&info)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "error",
 		})
 	}
-	u := user_.GetUser(info.Username, info.Passwd)
+	u := user_.GetUser(info.Name, info.Passwd)
 	is, isadmin, err := u.Login()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -30,7 +30,7 @@ func (s *User) Login(c *gin.Context) {
 		})
 		return
 	}
-	token, err := utils.GetJwt(c).Get(isadmin, info.Username)
+	token, err := utils.GetJwt(c).Get(isadmin, info.Name)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "internal server error",

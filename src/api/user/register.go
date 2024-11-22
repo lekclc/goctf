@@ -8,7 +8,7 @@ import (
 )
 
 func (s *User) Register(c *gin.Context) {
-	var info Info
+	var info UserInfo
 	err := c.ShouldBind(&info)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -16,7 +16,7 @@ func (s *User) Register(c *gin.Context) {
 		})
 		return
 	}
-	u := user_.GetUser(info.Username, info.Passwd)
+	u := user_.GetUser(info.Name, info.Passwd)
 	is, err := u.Register()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

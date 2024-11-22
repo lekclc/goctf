@@ -1,32 +1,63 @@
 package database
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
 type User struct {
 	gorm.Model
-	Uname  string `gorm:"unique;not null;size:255"`
+	Name   string `gorm:"unique;not null;size:64"`
 	Passwd string `gorm:"unique;not null;size:255"`
-	Admin  bool   `gorm:"not null"`
+	Admin  bool   `gorm:"unique;not null"`
+	Team   string `gorm:"unique;size:256"`
+}
+
+type Team struct {
+	gorm.Model
+	Name      string `gorm:"unique;not null;size:64"`
+	Leader    string `gorm:"unique;not null;size:64"`
+	Member    string `gorm:"unique;not null;size:255"`
+	Desc      string `gorm:"size:255"`
+	Key       string `gorm:"unique;not null;size:64"`
+	Challenge string `gorm:"size:1024"`
+	Score     uint   `gorm:"not null"`
+	GameID    uint   `gorm:"not null"`
 }
 
 type Challenge struct {
 	gorm.Model
 	Active    bool   `gorm:"unique;not null"`
+	Name      string `gorm:"unique;not null;size:64"`
+	MaxScore  int    `gorm:"not null"`
 	ImageID   uint   `gorm:"not null"`
+	DoneNum   uint   `gorm:"not null"`
+	Score     uint   `gorm:"not null"`
+	FileName  string `gorm:"not null"`
 	ImageName string `gorm:"not null"`
-	Flag      string `gorm:"unique"`
-	File      string
+	Flags     string `gorm:"unique;size:512"`
+	Hints     string `gorm:"size:512"`
+}
+
+type Image struct {
+	gorm.Model
+	Name        string `gorm:"unique;not null;size:64"`
+	Port        string `gorm:"unique;not null;size:256"`
+	ChallengeID uint   `gorm:"not null"`
 }
 
 type Container struct {
 	gorm.Model
-	ChallengeID uint   `gorm:"not null"`
-	UserID      uint   `gorm:"not null"`
-	Flag        string `gorm:"not null"`
+	Port        string `gorm:"unique;not null;size:256"`
+	Flag        string `gorm:"unique;not null"`
+	ChallengeID uint   `gorm:"unique;not null"`
+	UserID      uint   `gorm:"unique;not null"`
 }
 
 type Game struct {
 	gorm.Model
+	Name  string `gorm:"unique;not null;size:64"`
+	Start time.Time
+	End   time.Time
 }

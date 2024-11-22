@@ -10,11 +10,12 @@ import (
 )
 
 type Image struct {
-	Name string
-	ID   string
-	Port map[int]int
-	cl   *client.Client
-	ctx  context.Context
+	Name        string
+	ID          string
+	Port        map[int]int
+	ChallengeID uint
+	cl          *client.Client
+	ctx         context.Context
 }
 
 func NewImage(name string) *Image {
