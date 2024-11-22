@@ -1,4 +1,4 @@
-package game_router
+package game
 
 func (g *Game_router) Join() {
 	// token,username,teamname,gamename

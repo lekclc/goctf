@@ -1,4 +1,4 @@
-package game_router
+package game
 
 import "github.com/gin-gonic/gin"
 

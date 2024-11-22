@@ -1,11 +1,11 @@
 package router
 
 import (
-	user_router "src/api/user"
+	user "src/api/user"
 )
 
 func (r *Router) RouterUser() {
-	u := user_router.NewUser()
+	u := user.NewUser()
 	g := r.s.Group("/user")
 	g.POST("/login", u.Login)
 	g.GET("/register", u.Register)

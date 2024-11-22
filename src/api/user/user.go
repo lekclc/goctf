@@ -1,13 +1,13 @@
-package user_router
+package user
 
 import (
 	"github.com/gin-gonic/gin"
 )
 
-type User_router struct{}
+type User struct{}
 
-func NewUser() *User_router {
-	return &User_router{}
+func NewUser() *User {
+	return &User{}
 }
 
 type Info struct {
@@ -16,7 +16,7 @@ type Info struct {
 	Admin    bool   `form:"admin" json:"admin"`
 }
 
-func (s *User_router) Logout(c *gin.Context) {
+func (s *User) Logout(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "logout",
 	})

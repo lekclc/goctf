@@ -1,4 +1,4 @@
-package user_router
+package user
 
 import (
 	"net/http"
@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (s *User_router) Register(c *gin.Context) {
+func (s *User) Register(c *gin.Context) {
 	var info Info
 	err := c.ShouldBind(&info)
 	if err != nil {
