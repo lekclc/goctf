@@ -1,7 +1,6 @@
 package mid
 
 import (
-	"fmt"
 	"src/ctrl/utils"
 
 	"github.com/gin-gonic/gin"
@@ -9,10 +8,11 @@ import (
 
 func AuthMid() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		name := c.PostForm("name")
 		Jwt := utils.GetJwt(c)
 		ca, err := Jwt.GetClaims()
-		fmt.Println(ca)
-		if err != nil {
+
+		if err != nil || ca.Username != name {
 			c.JSON(401, gin.H{
 				"message": "unauthorized",
 			})

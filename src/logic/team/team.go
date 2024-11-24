@@ -1,8 +1,8 @@
 package team_
 
-type Team_ struct {
+type Team struct {
 }
 
-func GetTeam() *Team_ {
-	return &Team_{}
+func GetTeam() *Team {
+	return &Team{}
 }

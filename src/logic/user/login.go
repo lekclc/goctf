@@ -6,7 +6,7 @@ import (
 	"src/database"
 )
 
-func (s *User_) Login() (bool, bool, error) {
+func (s *User) Login() (bool, bool, error) {
 	// TODO
 	var user database.User
 	db := con.Db.Db
