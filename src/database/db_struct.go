@@ -8,10 +8,12 @@ import (
 
 type User struct {
 	gorm.Model
-	Name   string `gorm:"unique;not null;size:64"`
-	Passwd string `gorm:"unique;not null;size:255"`
-	Admin  bool   `gorm:"unique;not null"`
-	Team   string `gorm:"unique;size:256"`
+	Name    string `gorm:"unique;not null;size:64"`
+	Passwd  string `gorm:"unique;not null;size:255"`
+	Admin   bool   `gorm:"unique;not null"`
+	Team    string `gorm:"unique;size:512"`
+	Game    string `gorm:"size:512"`
+	TeamNum uint   `gorm:"not null"` //最大队伍数为15
 }
 
 type Team struct {

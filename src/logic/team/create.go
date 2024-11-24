@@ -1,5 +1,49 @@
 package team_
 
-func (s *Team) Create() {
+import (
+	"fmt"
+	con "src/const"
+	"src/database"
+	"strconv"
+	"strings"
+)
 
+func (s *Team) Create() (int, string, error) {
+	// create team
+	db := con.Db.Db
+	var team database.Team
+	db.Where("name = ?", s.Name).First(&team)
+	if team.ID != 0 {
+		return 2, "", nil
+	}
+	team.Name = s.Name
+	team.Leader = s.Leader
+	team.Desc = s.Desc
+	team.GameID = s.GameID
+	key := "key" //按照队伍名称和时间生成key,类似邀请码的功能
+	team.Key = key
+
+	var leader database.User
+	leader.Name = s.Leader
+	db.Where("name = ?", s.Leader).First(&leader)
+	fmt.Println(leader)
+	if leader.ID == 0 {
+		return 3, "", nil
+	}
+	games := strings.Split(leader.Game, ",")
+	for _, v := range games {
+		if v == s.Name {
+			return 4, "", nil
+		}
+	}
+	leader.Game = leader.Game + "," + strconv.Itoa(int(team.GameID))
+	db.Create(&team)
+	leader.Team = leader.Team + "," + strconv.Itoa(int(team.ID))
+	leader.TeamNum++ //没什么用,但是感觉可能用得到
+	err := db.Save(&leader).Error
+	if err != nil {
+		return 1, "", err
+	}
+
+	return 0, key, nil
 }
