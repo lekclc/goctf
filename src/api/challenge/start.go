@@ -1,5 +1,7 @@
 package challenge
 
-func (*Challenge) ChallengeStart() {
+import "github.com/gin-gonic/gin"
+
+func (s *Challenge) ChallengeStart(c *gin.Context) {
 
 }

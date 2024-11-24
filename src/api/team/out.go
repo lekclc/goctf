@@ -1,6 +1,8 @@
 package team
 
-func (t *Team) Out() {
+import "github.com/gin-gonic/gin"
+
+func (s *Team) Out(c *gin.Context) {
 	// token,username,teamname,who to out
 
 	// yes or no

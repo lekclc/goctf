@@ -1,6 +1,8 @@
 package game
 
-func (g *Game) Show() {
+import "github.com/gin-gonic/gin"
+
+func (s *Game) Show(c *gin.Context) {
 	// token,username
 
 	//允许查看,返回所有的题目信息,struct

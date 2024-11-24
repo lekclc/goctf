@@ -1,6 +1,8 @@
 package challenge
 
-func (c *Challenge) Upload() {
+import "github.com/gin-gonic/gin"
+
+func (s *Challenge) Upload(c *gin.Context) {
 	//token, 题目名称, username
 
 	//上传文件

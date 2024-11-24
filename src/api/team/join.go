@@ -1,6 +1,8 @@
 package team
 
-func (t *Team) Jion() {
+import "github.com/gin-gonic/gin"
+
+func (s *Team) Join(c *gin.Context) {
 	// token,username,teamname,teamkey
 
 	// yes or no
