@@ -25,6 +25,9 @@ mysql : 数据库映射目录
 
 数据库
 
+基于gorm的mysql
+
+
 ## logic
 
 api中功能的具体实现
