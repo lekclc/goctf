@@ -2,3 +2,4 @@
 /src/data/mysql/log/**
 /src/data/file/img/**
 /src/data/file/attachment/**
+/.vscode

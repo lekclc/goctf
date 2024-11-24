@@ -6,7 +6,7 @@ import (
 	"src/database"
 )
 
-func (s *User_) Register() (bool, error) {
+func (s *User) Register() (bool, error) {
 	var user database.User
 	db := con.Db.Db
 	db.Where("name = ? ", s.Uname).First(&user)

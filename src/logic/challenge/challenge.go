@@ -1,8 +1,8 @@
 package challenge_
 
-type Challenge_ struct {
+type Challenge struct {
 }
 
-func GetChallenge() *Challenge_ {
-	return &Challenge_{}
+func GetChallenge() *Challenge {
+	return &Challenge{}
 }

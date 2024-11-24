@@ -8,7 +8,10 @@ import (
 )
 
 func (s *User) Register(c *gin.Context) {
-	var info UserInfo
+	var info struct {
+		Name   string `form:"name" json:"name" binding:"required"`
+		Passwd string `form:"passwd" json:"passwd" binding:"required"`
+	}
 	err := c.ShouldBind(&info)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

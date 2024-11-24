@@ -1,8 +1,8 @@
 package game_
 
-type Game_ struct {
+type Game struct {
 }
 
-func GetGame() *Game_ {
-	return &Game_{}
+func GetGame() *Game {
+	return &Game{}
 }
