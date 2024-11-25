@@ -20,6 +20,10 @@ func (s *User) Register() (bool, error) {
 	user.Name = s.Uname
 	user.Passwd = Passwd
 	user.Admin = false
-	db.Create(&user)
+	user.Team = ""
+	err := db.Create(&user).Error
+	if err != nil {
+		return false, err
+	}
 	return true, nil
 }

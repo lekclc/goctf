@@ -17,9 +17,10 @@ func (s *Team) Create(c *gin.Context) {
 		})
 		panic(err)
 	}
+	name := c.PostForm("name")
 	t := team_.GetTeam()
 	t.Name = info.Name
-	t.Leader = info.Leader
+	t.Leader = name
 	t.Desc = info.Desc
 	t.GameID = info.GameID
 	status, key, err := t.Create()
