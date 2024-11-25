@@ -20,6 +20,14 @@ func (s *Team) Out(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "out success",
 		})
+	} else if status == 1 {
+		c.JSON(400, gin.H{
+			"message": "team not found",
+		})
+	} else if status == 2 {
+		c.JSON(400, gin.H{
+			"message": "user not found",
+		})
 	} else {
 		c.JSON(400, gin.H{
 			"message": "error",
