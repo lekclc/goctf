@@ -10,7 +10,6 @@ import (
 
 func (s *Team) Info(c *gin.Context) {
 	// token,team
-	// mode, all or one
 	var team Team
 	c.ShouldBind(&team)
 	var t team_.Team
@@ -25,10 +24,11 @@ func (s *Team) Info(c *gin.Context) {
 	challenges := strings.Split(msg["challenge"].(string), ",")
 	var challenge []string
 	challenge = append(challenge, challenges...)
+	challenge = challenge[:len(challenge)-1]
 	members := strings.Split(msg["members"].(string), ",")
 	var member []string
 	member = append(member, members...)
-
+	member = member[:len(member)-1]
 	c.JSON(200, gin.H{
 		"message":   "success",
 		"name":      msg["name"],
@@ -37,5 +37,6 @@ func (s *Team) Info(c *gin.Context) {
 		"desc":      msg["desc"],
 		"score":     msg["score"],
 		"challenge": challenge,
+		"gameID":    msg["gameid"],
 	})
 }

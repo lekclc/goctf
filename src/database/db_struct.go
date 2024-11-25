@@ -11,7 +11,7 @@ type User struct {
 	Name    string `gorm:"unique;not null;size:64"`
 	Passwd  string `gorm:"unique;not null;size:255"`
 	Admin   bool   `gorm:"unique;not null"`
-	Team    string `gorm:"unique;size:512"`
+	Team    string `gorm:"size:512"`
 	Game    string `gorm:"size:512"`
 	TeamNum uint   `gorm:"not null"` //最大队伍数为15
 }
@@ -21,6 +21,7 @@ type Team struct {
 	Name      string `gorm:"unique;not null;size:64"`
 	Leader    string `gorm:"unique;not null;size:64"`
 	Member    string `gorm:"unique;not null;size:255"`
+	MemberNum uint   `gorm:"not null"` //最大队伍人数为4
 	Desc      string `gorm:"size:255"`
 	Key       string `gorm:"unique;not null;size:64"`
 	Challenge string `gorm:"size:1024"`

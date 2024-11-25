@@ -1,7 +1,6 @@
 package team_
 
 import (
-	"fmt"
 	con "src/const"
 	"src/database"
 	"strconv"
@@ -26,7 +25,6 @@ func (s *Team) Create() (int, string, error) {
 	var leader database.User
 	leader.Name = s.Leader
 	db.Where("name = ?", s.Leader).First(&leader)
-	fmt.Println(leader)
 	if leader.ID == 0 {
 		return 3, "", nil
 	}
@@ -36,9 +34,9 @@ func (s *Team) Create() (int, string, error) {
 			return 4, "", nil
 		}
 	}
-	leader.Game = leader.Game + "," + strconv.Itoa(int(team.GameID))
+	team.MemberNum = 1
 	db.Create(&team)
-	leader.Team = leader.Team + "," + strconv.Itoa(int(team.ID))
+	leader.Team = leader.Team + strconv.Itoa(int(team.ID)) + ","
 	leader.TeamNum++ //没什么用,但是感觉可能用得到
 	err := db.Save(&leader).Error
 	if err != nil {
