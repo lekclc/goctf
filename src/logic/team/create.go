@@ -36,8 +36,10 @@ func (s *Team) Create() (int, string, error) {
 	}
 	team.MemberNum = 1
 	db.Create(&team)
-	leader.Team = leader.Team + strconv.Itoa(int(team.ID)) + ","
+	leader.Team += strconv.Itoa(int(team.ID)) + ","
 	leader.TeamNum++ //没什么用,但是感觉可能用得到
+	leader.Game += strconv.Itoa(int(team.GameID)) + ","
+
 	err := db.Save(&leader).Error
 	if err != nil {
 		return 1, "", err

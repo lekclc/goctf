@@ -9,8 +9,8 @@ import (
 type User struct {
 	gorm.Model
 	Name    string `gorm:"unique;not null;size:64"`
-	Passwd  string `gorm:"unique;not null;size:255"`
-	Admin   bool   `gorm:"unique;not null"`
+	Passwd  string `gorm:"not null;size:255"`
+	Admin   bool   `gorm:"not null"`
 	Team    string `gorm:"size:512"`
 	Game    string `gorm:"size:512"`
 	TeamNum uint   `gorm:"not null"` //最大队伍数为15
@@ -19,11 +19,11 @@ type User struct {
 type Team struct {
 	gorm.Model
 	Name      string `gorm:"unique;not null;size:64"`
-	Leader    string `gorm:"unique;not null;size:64"`
-	Member    string `gorm:"unique;not null;size:255"`
+	Leader    string `gorm:"not null;size:64"`
+	Member    string `gorm:"not null;size:255"`
 	MemberNum uint   `gorm:"not null"` //最大队伍人数为4
 	Desc      string `gorm:"size:255"`
-	Key       string `gorm:"unique;not null;size:64"`
+	Key       string `gorm:"not null;size:64"`
 	Challenge string `gorm:"size:1024"`
 	Score     uint   `gorm:"not null"`
 	GameID    uint   `gorm:"not null"`
@@ -31,7 +31,7 @@ type Team struct {
 
 type Challenge struct {
 	gorm.Model
-	Active    bool   `gorm:"unique;not null"`
+	Active    bool   `gorm:"not null"`
 	Name      string `gorm:"unique;not null;size:64"`
 	MaxScore  int    `gorm:"not null"`
 	ImageID   uint   `gorm:"not null"`
@@ -53,9 +53,9 @@ type Image struct {
 type Container struct {
 	gorm.Model
 	Port        string `gorm:"unique;not null;size:256"`
-	Flag        string `gorm:"unique;not null"`
-	ChallengeID uint   `gorm:"unique;not null"`
-	UserID      uint   `gorm:"unique;not null"`
+	Flag        string `gorm:"not null"`
+	ChallengeID uint   `gorm:"not null"`
+	UserID      uint   `gorm:"not null"`
 }
 
 type Game struct {

@@ -8,7 +8,7 @@ import (
 )
 
 func (s *Team) Create(c *gin.Context) {
-	// token,name,team
+	// token,name,team,game_id,desc
 	var info Team
 	err := c.ShouldBind(&info)
 	if err != nil {

@@ -3,6 +3,7 @@ package team_
 import (
 	con "src/const"
 	"src/database"
+	"strconv"
 	"strings"
 )
 
@@ -21,24 +22,49 @@ func (s *Team) Out(name string) uint {
 		// message : user not found
 	}
 	members := strings.Split(team.Member, ",")
+	is := true
 	for i, member := range members {
 		if member == name {
 			members = append(members[:i], members[i+1:]...)
 			team.Member = strings.Join(members, ",")
-			db.Save(&team)
+			team.MemberNum--
+			is = false
+
 			break
 		}
+
 	}
+	if is {
+		return 3
+	}
+	is = true
 	teams := strings.Split(user.Team, ",")
-	for i, team := range teams {
-		if team == s.Name {
+	for i, team_ := range teams {
+		if team_ == strconv.Itoa(int(team.ID)) {
 			teams = append(teams[:i], teams[i+1:]...)
 			user.Team = strings.Join(teams, ",")
-			db.Save(&user)
+			user.TeamNum--
+			is = false
 			break
 		}
 	}
-	// yes or no
-	//if no, message
+	if is {
+		return 4
+	}
+	games := strings.Split(user.Game, ",")
+	is = true
+	for i, game := range games {
+		if game == strconv.Itoa(int(team.GameID)) {
+			games = append(games[:i], games[i+1:]...)
+			user.Game = strings.Join(games, ",")
+			is = false
+			break
+		}
+	}
+	if is {
+		return 5
+	}
+	db.Save(&team)
+	db.Save(&user)
 	return 0
 }
