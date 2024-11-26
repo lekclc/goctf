@@ -11,8 +11,8 @@ func (s *Team) Out(name string) uint {
 	db := con.Db.Db
 	var user database.User
 	var team database.Team
-	db.Where("name = ?", s.Name).First(&team)
-	if team.ID == 0 {
+	db.Where("name = ? ", s.Name).First(&team)
+	if team.ID == 0 || team.Leader != s.Leader {
 		return 1
 		// message : team not found
 	}
