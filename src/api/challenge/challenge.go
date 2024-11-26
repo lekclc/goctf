@@ -1,16 +1,17 @@
 package challenge
 
 type Challenge struct {
-	Active    bool
-	Name      string
-	MaxScore  uint
+	Class     string `form:"class" json:"class"`
+	Active    bool   `form:"active" json:"active"`
+	Name      string `form:"challenge_name" json:"challenge_name" binding:"required"`
+	MaxScore  uint   `form:"max_score" json:"max_score"`
 	ImageID   uint
 	DoneNum   uint
 	Score     uint
-	FileName  string
-	ImageName string
-	Flags     string
-	Hints     string
+	FileName  string `form:"file_name" json:"file_name"`
+	ImageName string `form:"image_name" json:"image_name"`
+	Flags     string `form:"flags" json:"flags"`
+	Desc      string `form:"desc" json:"desc"`
 }
 
 func NewChallenge() *Challenge {

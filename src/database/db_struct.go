@@ -31,16 +31,17 @@ type Team struct {
 
 type Challenge struct {
 	gorm.Model
+	Class     string `gorm:"not null"`
 	Active    bool   `gorm:"not null"`
 	Name      string `gorm:"unique;not null;size:64"`
-	MaxScore  int    `gorm:"not null"`
+	MaxScore  uint   `gorm:"not null"`
 	ImageID   uint   `gorm:"not null"`
 	DoneNum   uint   `gorm:"not null"`
 	Score     uint   `gorm:"not null"`
 	FileName  string `gorm:"not null"`
 	ImageName string `gorm:"not null"`
 	Flags     string `gorm:"unique;size:512"`
-	Hints     string `gorm:"size:512"`
+	Desc      string `gorm:"size:512"`
 }
 
 type Image struct {
