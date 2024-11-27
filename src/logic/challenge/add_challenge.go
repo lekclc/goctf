@@ -23,7 +23,9 @@ func (s *Challenge) AddChallenge() int {
 	dc.Score = s.Score
 	dc.FileName = s.FileName
 	dc.ImageName = s.ImageName
-	dc.Flags = s.Flags
+	if s.Flags != "" {
+		dc.Flags = s.Flags + ","
+	}
 	dc.Desc = s.Desc
 	err := db.Create(&dc).Error
 	if err != nil {

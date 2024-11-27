@@ -7,5 +7,4 @@ func (s *Challenge) GetCon(c *gin.Context) {
 	//获得动态环境
 
 	//return host,port
-
 }

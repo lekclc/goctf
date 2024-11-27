@@ -1,8 +1,8 @@
 package challenge
 
 import (
-	"fmt"
 	challenge_ "src/logic/challenge"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,22 +10,31 @@ import (
 // 赛题添加
 func (s *Challenge) AddChallenge(c *gin.Context) {
 	// class, mode (active or static), name, score,...description, ...flag, ...file, ...con
-
-	var info Challenge
-	c.ShouldBind(&info)
-	fmt.Println(info)
 	var dc challenge_.Challenge
-	dc.Class = info.Class
-	dc.Name = info.Name
-	dc.Active = info.Active
-	dc.MaxScore = info.MaxScore
-	dc.ImageID = info.ImageID
-	dc.DoneNum = info.DoneNum
-	dc.Score = info.Score
-	dc.FileName = info.FileName
-	dc.ImageName = info.ImageName
-	dc.Flags = info.Flags
-	dc.Desc = info.Desc
+	dc.Class = c.PostForm("class")
+	if dc.Class == "" || dc.Class != "PWN" && dc.Class != "RE" && dc.Class != "WEB" && dc.Class != "MISC" && dc.Class != "CRYPTO" {
+		c.JSON(400, gin.H{
+			"message": "class is empty or error",
+		})
+		return
+	}
+	dc.Name = c.PostForm("challenge_name")
+	dc.Active = c.PostForm("active") == "true"
+	maxScore, err := strconv.ParseUint(c.PostForm("max_score"), 10, 32)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": "invalid max_score",
+		})
+		return
+	}
+	dc.MaxScore = uint(maxScore)
+	dc.ImageID = 0
+	dc.DoneNum = 0
+	dc.Score = 0
+	dc.FileName = c.PostForm("file_name")
+	dc.ImageName = c.PostForm("image_name")
+	dc.Flags = c.PostForm("flags")
+	dc.Desc = c.PostForm("desc")
 	status := dc.AddChallenge()
 	if status == 1 {
 		c.JSON(400, gin.H{

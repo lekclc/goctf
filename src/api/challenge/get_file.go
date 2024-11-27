@@ -1,10 +1,31 @@
 package challenge
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	challenge_ "src/logic/challenge"
+
+	"github.com/gin-gonic/gin"
+)
 
 func (s *Challenge) GetFile(c *gin.Context) {
 	//token, 题目名称, name
 	//如果存在附件
 	//在响应中返回文件内容
+	challenge_name := c.PostForm("challenge_name")
+	ch := challenge_.GetChallenge()
+	ch.Name = challenge_name
+	filename, err := ch.GetFile()
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": err,
+		})
+		return
+	}
+	fmt.Println(filename)
+	//返回的只是处于data/attachment下的路径
+	c.JSON(200, gin.H{
+		"message": "success",
+	})
+	c.File(filename)
 
 }

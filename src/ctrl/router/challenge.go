@@ -21,7 +21,7 @@ func (r *Router) RouterChallenge() {
 	s.Use(mid.AuthAdmin())
 	s.POST("/addchallenge", u.AddChallenge)
 	s.POST("/addflag", u.AddFlag)
-	s.POST("/addhint", u.AddHint)
+	s.POST("/updateinfo", u.UpdateInfo)
 	s.POST("/upload", u.Upload)
 
 }
