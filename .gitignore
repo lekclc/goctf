@@ -1,4 +1,4 @@
 /src/data/mysql/data/**
 /src/data/mysql/log/**
-
+/src/data/file/*
 /.vscode
