@@ -1,10 +1,28 @@
 package game
 
-import "github.com/gin-gonic/gin"
+import (
+	game_ "src/logic/game"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
+)
 
 func (s *Game) Join(c *gin.Context) {
-	// token,name,team,game
+	gameid := c.PostForm("game")
+	team := c.PostForm("team")
 
-	// return yes or no
-	// yes 后跳转到show
+	id, err := strconv.ParseUint(gameid, 10, 32)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "Invalid game ID"})
+		return
+	}
+
+	var g game_.Game
+	g.ID = uint(id)
+	if err := g.Join(team); err != nil {
+		c.JSON(500, gin.H{"error": "Failed to join game"})
+		return
+	}
+	c.JSON(200, gin.H{"message": "Success"})
+
 }

@@ -4,7 +4,6 @@ import (
 	con "src/const"
 	"src/database"
 	"strconv"
-	"strings"
 )
 
 func (s *Team) Create() (int, string, error) {
@@ -18,7 +17,6 @@ func (s *Team) Create() (int, string, error) {
 	team.Name = s.Name
 	team.Leader = s.Leader
 	team.Desc = s.Desc
-	team.GameID = s.GameID
 	key := "key" //按照队伍名称和时间生成key,类似邀请码的功能
 	team.Key = key
 
@@ -28,17 +26,10 @@ func (s *Team) Create() (int, string, error) {
 	if leader.ID == 0 {
 		return 3, "", nil
 	}
-	games := strings.Split(leader.Game, ",")
-	for _, v := range games {
-		if v == s.Name {
-			return 4, "", nil
-		}
-	}
 	team.MemberNum = 1
 	db.Create(&team)
 	leader.Team += strconv.Itoa(int(team.ID)) + ","
 	leader.TeamNum++ //没什么用,但是感觉可能用得到
-	leader.Game += strconv.Itoa(int(team.GameID)) + ","
 
 	err := db.Save(&leader).Error
 	if err != nil {

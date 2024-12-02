@@ -12,7 +12,6 @@ type User struct {
 	Passwd  string `gorm:"not null;size:255"`
 	Admin   bool   `gorm:"not null"`
 	Team    string `gorm:"size:512"`
-	Game    string `gorm:"size:512"`
 	TeamNum uint   `gorm:"not null"` //最大队伍数为15
 }
 

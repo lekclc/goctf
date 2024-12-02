@@ -22,9 +22,10 @@ func (s *Challenge) GetFile(c *gin.Context) {
 		return
 	}
 	fmt.Println(filename)
-	//返回的只是处于data/attachment下的路径
+	//后面可以做个下载服务优化掉
 	c.JSON(200, gin.H{
-		"message": "success",
+		"message":  "success",
+		"filename": filename,
 	})
 	c.File(filename)
 

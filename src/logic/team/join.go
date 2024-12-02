@@ -35,7 +35,6 @@ func (t *Team) Join(name string) uint {
 
 	user.Team += strconv.FormatInt(int64(team.ID), 10) + ","
 	user.TeamNum++
-	user.Game += strconv.FormatUint(uint64(t.GameID), 10) + ","
 
 	team.MemberNum++
 	team.Member += name + ","

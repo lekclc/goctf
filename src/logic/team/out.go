@@ -51,16 +51,6 @@ func (s *Team) Out(name string) uint {
 	if is {
 		return 4
 	}
-	games := strings.Split(user.Game, ",")
-	is = true
-	for i, game := range games {
-		if game == strconv.Itoa(int(team.GameID)) {
-			games = append(games[:i], games[i+1:]...)
-			user.Game = strings.Join(games, ",")
-			is = false
-			break
-		}
-	}
 	if is {
 		return 5
 	}

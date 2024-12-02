@@ -22,7 +22,6 @@ func (s *Team) Create(c *gin.Context) {
 	t.Name = info.Name
 	t.Leader = name
 	t.Desc = info.Desc
-	t.GameID = info.GameID
 	status, key, err := t.Create()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
