@@ -4,7 +4,7 @@
         <ul>
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/about">About</router-link></li>
-          <li><router-link to="/game">Game</router-link></li>
+          <li><router-link to="/gamelist">Game</router-link></li>
           <li><router-link to="/team">Team</router-link></li>
           <li><router-link to="/user">User</router-link></li>
 

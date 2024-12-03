@@ -12,15 +12,15 @@ func (s *Game) Set(c *gin.Context) {
 	//token,name,
 	start_time_str := c.PostForm("start")
 	end_time_str := c.PostForm("end")
-	name := c.PostForm("name")
+	name := c.PostForm("game")
 	desc := c.PostForm("desc")
-
-	start_time, err := time.Parse(time.RFC3339, start_time_str)
+	const timeFormat = "2006-01-02T15:04"
+	start_time, err := time.Parse(timeFormat, start_time_str)
 	if err != nil {
 		c.JSON(400, gin.H{"error": "Invalid start time format"})
 		return
 	}
-	end_time, err := time.Parse(time.RFC3339, end_time_str)
+	end_time, err := time.Parse(timeFormat, end_time_str)
 	if err != nil {
 		c.JSON(400, gin.H{"error": "Invalid end time format"})
 		return

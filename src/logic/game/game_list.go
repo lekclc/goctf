@@ -1,20 +1,22 @@
 package game_
 
 import (
+	"fmt"
 	con "src/const"
 	"src/database"
 	"time"
 )
 
-type Info struct {
+type GameInfo struct {
 	Name  string
 	Desc  string
 	Start time.Time
 	End   time.Time
+	ID    uint
 }
 
-func (s *Game) GameList() (map[any]any, error) {
-	res := make(map[any]any)
+func (g *Game) GameList() (map[string]GameInfo, error) {
+	var res = make(map[string]GameInfo)
 
 	var games []database.Game
 	db := con.Db.Db
@@ -26,11 +28,12 @@ func (s *Game) GameList() (map[any]any, error) {
 
 	// 将查询结果添加到返回值中
 	for _, game := range games {
-		res[game.ID] = Info{
+		res[fmt.Sprintf("%d", game.ID)] = GameInfo{
 			Name:  game.Name,
 			Desc:  game.Desc,
 			Start: game.Start,
 			End:   game.End,
+			ID:    game.ID,
 		}
 	}
 

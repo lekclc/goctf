@@ -2,7 +2,7 @@ package team
 
 import (
 	team_ "src/logic/team"
-
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -11,9 +11,16 @@ import (
 // 获取队伍信息
 func (s *Team) Info(c *gin.Context) {
 	// token,team
-	team_name := c.PostForm("team")
+	team_id := c.PostForm("team_id")
+	id, err := strconv.ParseUint(team_id, 10, 32)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": "invalid team_id",
+		})
+		return
+	}
 	var t team_.Team
-	t.Name = team_name
+	t.ID = uint(id)
 	msg, err := t.Info()
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -38,5 +45,6 @@ func (s *Team) Info(c *gin.Context) {
 		"score":     msg["score"],
 		"challenge": challenge,
 		"gameID":    msg["gameid"],
+		"key":       msg["key"],
 	})
 }

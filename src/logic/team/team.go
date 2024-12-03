@@ -1,6 +1,7 @@
 package team_
 
 type Team struct {
+	ID       uint
 	Name     string
 	Leader   string
 	Members  []string

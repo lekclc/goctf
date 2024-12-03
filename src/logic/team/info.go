@@ -12,7 +12,7 @@ func (s *Team) Info() (map[any]any, error) {
 	var t database.Team
 	t.Name = s.Name
 	db := con.Db.Db
-	db.Where("name = ?", s.Name).First(&t)
+	db.Where("id = ?", s.ID).First(&t)
 	if t.Name == "" {
 		return nil, errors.New("error")
 	}
@@ -27,6 +27,7 @@ func (s *Team) Info() (map[any]any, error) {
 		"score":     t.Score,
 		"challenge": t.Challenge,
 		"gameid":    t.GameID,
+		"key":       t.Key,
 	}, nil
 
 	// teamname, teamleader, teammembers[], teamdescription, teamscore, teamrank

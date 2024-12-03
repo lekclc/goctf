@@ -6,6 +6,8 @@ import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import Team from '../views/Team.vue';
 import Game from '../views/Game.vue';
+import GameList from '../views/GameList.vue';
+import AddChallenge from '../views/AddChallenge.vue';
 const routes = [
   {
     path: '/',
@@ -36,10 +38,21 @@ const routes = [
     path: '/team',
     name: 'Team',
     component: Team
-  },{
-    path: '/game',
+  },
+  {
+    path: '/game/:id',
     name: 'Game',
     component: Game
+  },
+  {
+    path: '/gamelist',
+    name: 'GameList',
+    component: GameList
+  },
+  {
+    path: '/addchallenge',
+    name: 'AddChallenge',
+    component: AddChallenge
   }
   
 ];
