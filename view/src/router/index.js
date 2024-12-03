@@ -50,7 +50,7 @@ const routes = [
     component: GameList
   },
   {
-    path: '/addchallenge',
+    path: '/addchallenge/:id',
     name: 'AddChallenge',
     component: AddChallenge
   }

@@ -41,6 +41,7 @@ type Challenge struct {
 	ImageName string `gorm:"not null"`
 	Flags     string `gorm:"unique;size:512"`
 	Desc      string `gorm:"size:512"`
+	GameID    uint   `gorm:"not null"`
 }
 
 type Image struct {

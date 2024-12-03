@@ -12,6 +12,7 @@ type Challenge struct {
 	ImageName string `form:"image_name" json:"image_name"`
 	Flags     string `form:"flags" json:"flags"`
 	Desc      string `form:"desc" json:"desc"`
+	GameID    uint
 }
 
 func GetChallenge() *Challenge {

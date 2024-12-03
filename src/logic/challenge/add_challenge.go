@@ -23,6 +23,8 @@ func (s *Challenge) AddChallenge() int {
 	dc.Score = s.Score
 	dc.FileName = s.FileName
 	dc.ImageName = s.ImageName
+	dc.GameID = s.GameID
+	dc.Score = dc.MaxScore
 	if s.Flags != "" {
 		dc.Flags = s.Flags + ","
 	}

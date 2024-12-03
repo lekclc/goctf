@@ -199,16 +199,17 @@ export default {
 }
 
 .modal {
-  display: block; /* 显示模态框 */
-  position: fixed; /* 固定定位 */
-  z-index: 1; /* 在最上层 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* 全屏 */
-  height: 100%; /* 全屏 */
-  background-color: rgb(0,0,0); /* 背景颜色 */
-  background-color: rgba(0,0,0,0.4); /* 背景颜色和透明度 */
-  
+  width: 50%;
+  height: 50%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {

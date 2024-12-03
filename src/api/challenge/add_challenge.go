@@ -1,6 +1,7 @@
 package challenge
 
 import (
+	"fmt"
 	challenge_ "src/logic/challenge"
 	"strconv"
 
@@ -12,7 +13,7 @@ func (s *Challenge) AddChallenge(c *gin.Context) {
 	// class, mode (active or static), name, score,...description, ...flag, ...file, ...con
 	var dc challenge_.Challenge
 	dc.Class = c.PostForm("class")
-	if dc.Class == "" || dc.Class != "PWN" && dc.Class != "RE" && dc.Class != "WEB" && dc.Class != "MISC" && dc.Class != "CRYPTO" {
+	if dc.Class == "" || dc.Class != "PWN" && dc.Class != "REVERSE" && dc.Class != "WEB" && dc.Class != "MISC" && dc.Class != "CRYPTO" {
 		c.JSON(400, gin.H{
 			"message": "class is empty or error",
 		})
@@ -27,14 +28,25 @@ func (s *Challenge) AddChallenge(c *gin.Context) {
 		})
 		return
 	}
+
 	dc.MaxScore = uint(maxScore)
+	fmt.Print(maxScore)
 	dc.ImageID = 0
 	dc.DoneNum = 0
 	dc.Score = 0
-	dc.FileName = c.PostForm("file_name")
 	dc.ImageName = c.PostForm("image_name")
 	dc.Flags = c.PostForm("flags")
 	dc.Desc = c.PostForm("desc")
+	gameidStr := c.PostForm("game_id")
+	gameid, err := strconv.ParseUint(gameidStr, 10, 32)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"message": "invalid game_id",
+		})
+		return
+	}
+
+	dc.GameID = uint(gameid)
 	status := dc.AddChallenge()
 	if status == 1 {
 		c.JSON(400, gin.H{

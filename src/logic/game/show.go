@@ -6,20 +6,26 @@ import (
 	"src/database"
 )
 
-func (s *Game) Show() (map[any]any, error) {
+func (g *Game) Show() (map[string]interface{}, error) {
 	db := con.Db.Db
-	var g database.Game
-	var res = make(map[any]any)
-	db.Where("id = ?", s.ID).First(&g)
-	if g.Name == "" || g.ID == 0 {
-		err := errors.New("Game not found")
-		return res, err
+	var game database.Game
+	var res = make(map[string]interface{})
+	db.Where("id = ?", g.ID).First(&game)
+	if game.Name == "" || game.ID == 0 {
+		return res, errors.New("Game not found")
 	}
-	//关卡
+
+	// 查询所有满足条件的 challenge
 	var challenges []database.Challenge
-	db.Where("game_id = ?", g.ID).Find(&challenges)
-	for _, c := range challenges {
-		res[c.Name] = c.ID
+	db.Where("game_id = ?", game.ID).Find(&challenges)
+
+	//遍历challenges
+	for i := 0; i < len(challenges); i++ {
+		challenges[i].Flags = ""
 	}
+	// 将 challenges 信息添加到结果中
+	res["game"] = game
+	res["challenges"] = challenges
+
 	return res, nil
 }
