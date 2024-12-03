@@ -8,6 +8,7 @@ import (
 func (r *Router) RouterGame() {
 	u := game.NewGame()
 	g := r.s.Group("/game")
+	g.POST("/gamelist", u.GameList)
 
 	d := g.Group("/")
 	d.Use(mid.AuthMid())

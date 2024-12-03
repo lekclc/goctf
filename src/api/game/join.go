@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 队伍参加比赛
 func (s *Game) Join(c *gin.Context) {
 	gameid := c.PostForm("game")
 	team := c.PostForm("team")

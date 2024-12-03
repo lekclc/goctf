@@ -8,18 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 登录
 func (s *User) Login(c *gin.Context) {
-	var info struct {
-		Name   string `form:"name" json:"name" binding:"required"`
-		Passwd string `form:"passwd" json:"passwd" binding:"required"`
-	}
-	err := c.ShouldBind(&info)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "error",
-		})
-	}
-	u := user_.GetUser(info.Name, info.Passwd)
+	name := c.PostForm("name")
+	passwd := c.PostForm("passwd")
+	u := user_.GetUser(name, passwd)
 	is, isadmin, err := u.Login()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -28,12 +21,12 @@ func (s *User) Login(c *gin.Context) {
 		return
 	}
 	if !is {
-		c.JSON(http.StatusOK, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "login failed",
 		})
 		return
 	}
-	token, err := utils.GetJwt(c).Get(isadmin, info.Name)
+	token, err := utils.GetJwt("").Get(isadmin, name)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "internal server error",

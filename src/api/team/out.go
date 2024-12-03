@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 提出成员
 func (s *Team) Out(c *gin.Context) {
 	// token,name,team,who to out
 	team := c.PostForm("team") // team name

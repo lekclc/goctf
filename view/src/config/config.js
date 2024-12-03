@@ -1,1 +1,1 @@
-export const Url = 'http://127.0.0.1:8000';  //后端地址   
+export const Url = 'http://192.168.110.132:8000';  //后端地址   

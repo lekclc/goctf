@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 获取相关比赛的题目信息
 func (s *Game) Show(c *gin.Context) {
 	// token,name
 	game_id := c.PostForm("game_id")

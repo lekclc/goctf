@@ -53,7 +53,7 @@ type Image struct {
 type Container struct {
 	gorm.Model
 	Port        string `gorm:"unique;not null;size:256"`
-	Flag        string `gorm:"not null"`
+	Flag        string `gorm:"not null;size:128"`
 	ChallengeID uint   `gorm:"not null"`
 	UserID      uint   `gorm:"not null"`
 }
@@ -63,4 +63,5 @@ type Game struct {
 	Name  string `gorm:"unique;not null;size:64"`
 	Start time.Time
 	End   time.Time
+	Desc  string `gorm:"size:512"`
 }

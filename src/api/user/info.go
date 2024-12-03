@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 获取个人信息
 func (s *User) Info(c *gin.Context) {
 	//token,name
 	name := c.PostForm("name")

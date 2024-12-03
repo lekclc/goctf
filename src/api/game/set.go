@@ -7,11 +7,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 添加比赛
 func (s *Game) Set(c *gin.Context) {
 	//token,name,
 	start_time_str := c.PostForm("start")
 	end_time_str := c.PostForm("end")
 	name := c.PostForm("name")
+	desc := c.PostForm("desc")
 
 	start_time, err := time.Parse(time.RFC3339, start_time_str)
 	if err != nil {
@@ -29,6 +31,7 @@ func (s *Game) Set(c *gin.Context) {
 	g.Start = start_time
 	g.End = end_time
 	g.Name = name
+	g.Desc = desc
 	id, err := g.Set()
 	if id == 0 || err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})

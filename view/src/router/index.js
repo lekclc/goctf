@@ -4,6 +4,8 @@ import About from '../views/About.vue';
 import User from '../views/User.vue';
 import Login from '../views/Login.vue'; 
 import Register from '../views/Register.vue';
+import Team from '../views/Team.vue';
+import Game from '../views/Game.vue';
 const routes = [
   {
     path: '/',
@@ -29,6 +31,15 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/team',
+    name: 'Team',
+    component: Team
+  },{
+    path: '/game',
+    name: 'Game',
+    component: Game
   }
   
 ];

@@ -9,7 +9,8 @@ import (
 func AuthMid() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		name := c.PostForm("name")
-		Jwt := utils.GetJwt(c)
+		token := c.PostForm("token")
+		Jwt := utils.GetJwt(token)
 		ca, err := Jwt.GetClaims()
 
 		if err != nil || ca.Username != name {
@@ -25,9 +26,11 @@ func AuthMid() gin.HandlerFunc {
 
 func AuthAdmin() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		Jwt := utils.GetJwt(c)
+		name := c.PostForm("name")
+		token := c.PostForm("token")
+		Jwt := utils.GetJwt(token)
 		ca, err := Jwt.GetClaims()
-		if err != nil {
+		if err != nil || ca.Username != name {
 			c.JSON(401, gin.H{
 				"message": "unauthorized",
 			})

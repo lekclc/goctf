@@ -6,14 +6,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 加入队伍
 func (s *Team) Join(c *gin.Context) {
 	// token,name,team,key
-	var team Team
-	c.ShouldBind(&team) //绑定key和name(teamname)
+	team_name := c.PostForm("team")
 	name := c.PostForm("name")
 	key := c.PostForm("key") //ShouldBind绑定失败
 	var t team_.Team
-	t.Name = team.Name
+	t.Name = team_name
 	t.Key = key
 	status := t.Join(name)
 

@@ -7,21 +7,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 新建队伍
 func (s *Team) Create(c *gin.Context) {
-	// token,name,team,game_id,desc
-	var info Team
-	err := c.ShouldBind(&info)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "error",
-		})
-		panic(err)
-	}
+	// token,name,team,,desc
+	team := c.PostForm("team")
+	desc := c.PostForm("desc")
 	name := c.PostForm("name")
+	if team == "" || desc == "" || name == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "param error",
+		})
+	}
 	t := team_.GetTeam()
-	t.Name = info.Name
+	t.Name = team
 	t.Leader = name
-	t.Desc = info.Desc
+	t.Desc = desc
 	status, key, err := t.Create()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

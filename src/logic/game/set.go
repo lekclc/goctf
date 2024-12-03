@@ -20,6 +20,7 @@ func (s *Game) Set() (uint, error) {
 	g.Name = s.Name
 	g.Start = s.Start
 	g.End = s.End
+	g.Desc = s.Desc
 	err = db.Create(&g).Error
 	if err != nil {
 		return 0, err

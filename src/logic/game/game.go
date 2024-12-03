@@ -7,6 +7,7 @@ type Game struct {
 	ID    uint
 	Start time.Time
 	End   time.Time
+	Desc  string
 }
 
 func GetGame() *Game {

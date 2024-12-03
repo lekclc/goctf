@@ -8,12 +8,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 获取队伍信息
 func (s *Team) Info(c *gin.Context) {
 	// token,team
-	var team Team
-	c.ShouldBind(&team)
+	team_name := c.PostForm("team")
 	var t team_.Team
-	t.Name = team.Name
+	t.Name = team_name
 	msg, err := t.Info()
 	if err != nil {
 		c.JSON(400, gin.H{

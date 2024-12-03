@@ -7,19 +7,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 注册
 func (s *User) Register(c *gin.Context) {
-	var info struct {
-		Name   string `form:"name" json:"name" binding:"required"`
-		Passwd string `form:"passwd" json:"passwd" binding:"required"`
-	}
-	err := c.ShouldBind(&info)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "error",
-		})
-		return
-	}
-	u := user_.GetUser(info.Name, info.Passwd)
+	name := c.PostForm("name")
+	passwd := c.PostForm("passwd")
+	u := user_.GetUser(name, passwd)
 	is, err := u.Register()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

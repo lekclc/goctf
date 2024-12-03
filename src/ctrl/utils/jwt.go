@@ -5,12 +5,11 @@ import (
 	cfg "src/config"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 )
 
 type MJwt struct {
-	r *gin.Context
+	token string
 }
 
 type Claims struct {
@@ -19,8 +18,8 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-func GetJwt(r *gin.Context) *MJwt {
-	return &MJwt{r}
+func GetJwt(tokens string) *MJwt {
+	return &MJwt{token: tokens}
 }
 
 func (j *MJwt) Get(is bool, name string) (string, error) {
@@ -44,7 +43,7 @@ func (j *MJwt) Get(is bool, name string) (string, error) {
 }
 
 func (j *MJwt) GetClaims() (*Claims, error) {
-	tokenString := j.r.PostForm("token")
+	tokenString := j.token
 
 	if tokenString == "" {
 		return nil, fmt.Errorf("no token provided")
