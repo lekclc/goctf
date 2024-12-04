@@ -20,6 +20,7 @@ func (s *Team) Info() (map[any]any, error) {
 		return nil, errors.New("error")
 	}
 	return map[any]any{
+		"id":        t.ID,
 		"name":      t.Name,
 		"leader":    t.Leader,
 		"members":   t.Member,

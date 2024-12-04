@@ -38,6 +38,7 @@ func (s *Team) Info(c *gin.Context) {
 	member = member[:len(member)-1]
 	c.JSON(200, gin.H{
 		"message":   "success",
+		"id":        msg["id"],
 		"name":      msg["name"],
 		"leader":    msg["leader"],
 		"members":   member,

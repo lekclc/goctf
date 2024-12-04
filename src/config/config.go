@@ -15,3 +15,11 @@ func (c *Config) Init() {
 	}
 	yaml.Unmarshal(data, c)
 }
+
+func (c *Config) Save() {
+	data, err := yaml.Marshal(c)
+	if err != nil {
+		panic(err)
+	}
+	os.WriteFile("config/config.yaml", data, 0644)
+}

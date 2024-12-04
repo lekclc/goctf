@@ -11,6 +11,8 @@ type db struct {
 	Dbname string `yaml:"dbname"`
 	Ip     string `yaml:"ip"`
 	Port   int    `yaml:"port"`
+	Str    string `yaml:"str"`
+	Cname  string `yaml:"cname"`
 }
 
 type admin struct {

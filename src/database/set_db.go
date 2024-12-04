@@ -8,10 +8,7 @@ import (
 )
 
 func (db *Db) Set_db() {
-	//新建数据库
-	db.Db.Exec("CREATE DATABASE IF NOT EXISTS " + cfg.Cfg.Db.Dbname)
-	//选择数据库
-	db.Db.Exec("USE " + cfg.Cfg.Db.Dbname)
+
 	//创建表
 	db.Db.AutoMigrate(&User{})
 	db.Db.AutoMigrate(&Team{})

@@ -25,7 +25,7 @@ export default {
             try {
                 const formData = new FormData();
                 formData.append('name', this.name);
-                formData.append('passwd', this.passwd); // 假设 token 是密码
+                formData.append('passwd', this.passwd);
                 const response = await fetch(`${Url}/user/login`, {
                     method: 'POST', 
                     body: formData

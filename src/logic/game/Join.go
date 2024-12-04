@@ -6,7 +6,7 @@ import (
 	"src/database"
 )
 
-func (s *Game) Join(team string) error {
+func (s *Game) Join(team uint, name string) error {
 	db := con.Db.Db
 
 	var g database.Game
@@ -15,9 +15,12 @@ func (s *Game) Join(team string) error {
 	if err != nil {
 		return err
 	}
-	err = db.Where("name = ?", team).First(&t).Error
+	err = db.Where("id = ?", team).First(&t).Error
 	if err != nil {
 		return err
+	}
+	if t.Leader != name {
+		return errors.New("not team leader")
 	}
 	if t.GameID != 0 {
 		return errors.New("team already in game")

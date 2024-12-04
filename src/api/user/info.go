@@ -19,9 +19,16 @@ func (s *User) Info(c *gin.Context) {
 		return
 	}
 	var info database.User
-	info.Name = name
 	db := con.Db.Db
-	db.Where("name = ?", name).First(&info)
+	err := db.Where("name = ?", name).First(&info).Error
+
+	if err != nil {
+
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "error",
+		})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{
 		"message":   "success",
 		"name":      info.Name,

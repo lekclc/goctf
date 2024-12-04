@@ -23,9 +23,9 @@ func (g *Game) GameList() (map[string]GameInfo, error) {
 
 	// 查询所有 game 数据
 	if err := db.Find(&games).Error; err != nil {
+		fmt.Println(err)
 		return res, err
 	}
-
 	// 将查询结果添加到返回值中
 	for _, game := range games {
 		res[fmt.Sprintf("%d", game.ID)] = GameInfo{

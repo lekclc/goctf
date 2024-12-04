@@ -5,63 +5,40 @@
         <button @click="AddChallenge">添加题目</button>
     </div>
         <div>
+            <div><!--首部-->
             <h1>{{ this.game.Name }}</h1>
+            <div id="teamhead">
+                <h2>
+                    {{ this.teamname }}
+                </h2>
+            </div>
+        </div>
         <div class="divider"></div>
-        <div class="Class_" v-if="this.Pwn.length">
-            <h1>    PWN     </h1>
-            <div class="Challenge" id="pwn"  v-for="pwn in this.Pwn" :key="pwn.ID" @click="ChallengeClick(pwn)">
-                <p>{{ pwn.Name }}</p>
-                <br>
-                <p>{{ pwn.Desc }}</p>
-                <br>
-                <p>score: {{ pwn.Score }}</p>
+        
+        <div>
+            <div class="Class_" v-for="type in this.List" >
+                <div v-if="type.length">
+                    <h2>  {{ type[0].Class }}  </h2>
+                    <br>
+                    <div class="Challenge" v-for="c_ in type" @click="ChallengeClick(c_)" v-if="type.length">
+                        <p>{{ c_.Name }}</p>
+                        <br>
+                        <p>{{ c_.Desc }}</p>
+                        <br>
+                        <p>
+                            score: {{ c_.Score }}
+                            <br>
+                            <span>
+                                <span>解出: {{ c_.DoneNum }}</span>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="divider"></div>
+                </div>
+
             </div>
         </div>
-        <div class="divider" v-if="this.Pwn.length"></div>
-        <div class="Class_" v-if="this.Reverse.length">
-            <h1>    REVERSE     </h1>
-            <div class="Challenge" id="reverse"  v-for="re in this.Reverse" :key="re.ID" @click="ChallengeClick(re)">
-                <p>{{ re.Name }}</p>
-                <br>
-                <p>{{ re.Desc }}</p>
-                <br>
-                <p>score: {{ re.Score }}</p>
-            </div>
-        </div>
-        <div class="divider" v-if="this.Reverse.length"></div>
-        <div class="Class_" v-if="this.Web.length">
-            <h1>    WEB     </h1>
-            <div class="Challenge" id="web"  v-for="web in this.Web" :key="web.ID" @click="ChallengeClick(web)">
-                <p>{{ web.Name }}</p>
-                <br>
-                <p>{{ web.Desc }}</p>
-                <br>                
-                <p>score: {{ web.Score }}</p>
-            </div>
-        </div>
-        <div class="divider" v-if="this.Web.length"></div>
-        <div class="Class_" v-if="this.Crypto.length">
-            <h1>    CRYPTO     </h1>
-            <div class="Challenge" id="crypto" v-for="cry in this.Crypto" :key="cry.ID" @click="ChallengeClick(cry)">
-                <p>{{ cry.Name }}</p>
-                <br>
-                <p>{{ cry.Desc }}</p>
-                <br>
-                <p>score: {{ cry.Score }}</p>
-            </div>
-        </div>
-        <div class="divider" v-if="this.Crypto.length"></div>
-        <div class="Class_" v-if="this.Misc.length">
-            <h1>    MISC     </h1>
-            <div class="Challenge" id="misc" v-for="misc in this.Misc" :key="misc.ID" @click="ChallengeClick(misc)">
-                <p>{{ misc.Name }}</p>
-                <br>
-                <p>{{ misc.Desc }}</p>
-                <br>
-                <p>score: {{ misc.Score }}</p>
-            </div>
-        </div>
-        <div class="divider" v-if="this.Misc.length"></div>
+
     </div>
     <div v-if="showModala" class="modal">
         <div class="modal-content"  @click="KeepModal">
@@ -70,21 +47,30 @@
                 <br>
                 <p>{{ this.s.Desc }}</p>
                 <br>
-                <p>{{ this.s.Score }}</p>
+                <p>score: {{ this.s.Score }}</p>
                 <br>
                 <div v-if="this.s.Active">
-                    <p>image</p>
+                    <p>
+                        <span><button @click="GetCon(this.s)">创建实例</button></span>
+                        <span> 连接: {{  }}</span>
+                    </p>
+                    
                 </div>
-                <form @submit.prevent="FlagSubmit">
+                <div v-if="this.s.FileName!=''">
+                    <p>
+                        <span>file: </span>
+                        <span><a :href="this.s.FileName" download>{{ this.s.FileName }}</a></span>
+                    </p>
+                </div>
+                <br>
+                <form @submit.prevent="FlagSubmit(flag)">
                 <div>
                     <label for="Flag">Flag:</label>
                     <input type="text" v-model="flag" id="flag" required />
                     <button  type="submit">提交</button>
                 </div>
                 </form>
-                <div v-if="this.s.FileName!=''">
-                    <p>file</p>
-                </div>
+                
             </div>
     </div>
 </div>
@@ -98,6 +84,8 @@ export default {
     data() {
         return {
             id: '',
+            teamname: '',
+            teamid: '',
             game: {},
             challenge: [],
             Pwn: [],
@@ -105,10 +93,13 @@ export default {
             Crypto: [],
             Web: [],
             Misc: [],
+            List: [],
+            ListName: ['PWN','REVERSE','CRYPTO','WEB','MISC'],
             isadmin: false,
             showModala: false,
             isfirstclickmain: false,
             s: {},
+            Live: [],
         };
     },
     async created() {
@@ -117,6 +108,8 @@ export default {
         }
 
         this.id = this.$route.params.id
+        this.teamname = this.$route.params.teamname
+        console.log(this.id,this.teamname)
         this.ChallengeInfo()
     },
     methods: {
@@ -152,24 +145,20 @@ export default {
                         this.Misc.push(this.challenge[i])
                     }
                 }
-                /*
-                console.log(this.Pwn)
-                console.log(this.Reverse)
-                console.log(this.Crypto)
-                console.log(this.Web)
-                console.log(this.Misc)
-                */
+                this.List.push(this.Pwn)
+                this.List.push(this.Reverse)
+                this.List.push(this.Crypto)
+                this.List.push(this.Web)
+                this.List.push(this.Misc)
             }catch(error){
                 console.error('Fetch error:', error);
             }
         },
-
         MainClick(){
             if(!this.isfirstclickmain){
                 this.showModala=false
             }
             this.isfirstclickmain=false
-            console.log("DDD")
         },
         ChallengeClick(ss){
             this.s=ss
@@ -181,6 +170,28 @@ export default {
         },
         KeepModal(){
             this.isfirstclickmain=true
+        },
+        async GetCon(c){
+            const formData = new FormData()
+            formData.append('name',localStorage.getItem('name'))
+            formData.append('token',localStorage.getItem('jwt'))
+            formData.append('challenge_id', c.ID)
+            try{
+                const response = await fetch(`${Url}/challenge/getcon`, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error('获取连接失败');
+                }
+                const data = await response.json();
+                this.Live.push(data.data)
+            }catch{
+                console.error('Fetch error:', error);
+            }
+        },
+        FlagSubmit(flag){
+
         }
     },
 }

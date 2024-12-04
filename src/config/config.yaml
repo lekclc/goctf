@@ -1,14 +1,16 @@
 host:
-  ip: 192.168.110.132
-  port: 8000
+    ip: 192.168.110.132
+    port: 8000
 db:
-  uname:  root
-  passwd: rootroot
-  dbname: ctf
-  ip: 127.0.0.1
-  port: 13306
+    uname: root
+    passwd: rootroot
+    dbname: ctf
+    ip: 127.0.0.1
+    port: 13306
+    str: ""
+    cname: mysql18371902
 admin:
-  uname: admin
-  passwd: admin
+    uname: admin
+    passwd: admin
 str:
-  key: AAAAAAAAAA
+    key: AAAAAAAAAA
