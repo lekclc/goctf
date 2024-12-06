@@ -2,3 +2,5 @@
 /src/data/mysql/log/**
 /src/data/file/*
 /.vscode
+/view/node_modules
+/src/tmp
