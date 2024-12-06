@@ -13,6 +13,7 @@ func (r *Router) RouterChallenge() {
 	d.Use(mid.AuthMid())
 	d.POST("/flagsubmit", u.FlagSubmit)
 	d.POST("/getcon", u.GetCon)
+	d.POST("/delcon", u.DelCon)
 	d.POST("/getfile", u.GetFile)
 	d.POST("/info", u.Info)
 	d.POST("/start", u.ChallengeStart)

@@ -51,8 +51,10 @@
                 <br>
                 <div v-if="this.s.Active">
                     <p>
-                        <span><button @click="GetCon(this.s)">创建实例</button></span>
-                        <span> 连接: {{  }}</span>
+                        <div v-if="!this.Live[this.s.ID]"><span><button @click="GetCon(this.s)">创建实例</button></span></div>
+                        <div v-if="this.Live[this.s.ID]"><span><button @click="DelCon(this.s)">销毁实例</button></span></div>
+                        <div v-if="this.Live[this.s.ID]"><span> 连接: {{ this.Live[this.s.ID] }}</span></div>
+                        
                     </p>
                     
                 </div>
@@ -108,9 +110,10 @@ export default {
         }
 
         this.id = this.$route.params.id
+        this.teamid = this.$route.params.teamid
         this.teamname = this.$route.params.teamname
-        console.log(this.id,this.teamname)
         this.ChallengeInfo()
+        this.GetConInfo()
     },
     methods: {
         AddChallenge() {
@@ -164,6 +167,7 @@ export default {
             this.s=ss
             this.showModala=true
             this.isfirstclickmain=true
+            this.flag=""
         },
         closeModal(){
             this.showModala=false
@@ -171,11 +175,38 @@ export default {
         KeepModal(){
             this.isfirstclickmain=true
         },
+        async GetConInfo(){
+            const formData = new FormData()
+            formData.append('name',localStorage.getItem('name'))
+            formData.append('token',localStorage.getItem('jwt'))
+            formData.append('game_id', this.id)
+            formData.append('team_id', this.teamid)
+            try{
+                const response = await fetch(`${Url}/game/getconinfo`, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error('获取连接信息失败');
+                }
+                const data = await response.json();
+                for(let i =0;i<data.data.length;i++){
+                    this.Live[data.data[i].ChallengeID]=data.data[i].Nc
+                }
+                console.log(this.Live)
+
+            }catch{
+                console.error('Fetch error:', error);
+            }
+        },
         async GetCon(c){
             const formData = new FormData()
             formData.append('name',localStorage.getItem('name'))
             formData.append('token',localStorage.getItem('jwt'))
             formData.append('challenge_id', c.ID)
+            formData.append('team_id', this.teamid)
+            formData.append('game_id', this.id)
+            
             try{
                 const response = await fetch(`${Url}/challenge/getcon`, {
                     method: 'POST',
@@ -185,7 +216,31 @@ export default {
                     throw new Error('获取连接失败');
                 }
                 const data = await response.json();
-                this.Live.push(data.data)
+                this.Live[c.ID]=data.host+':'+data.port
+                console.log(this.Live)
+            }catch{
+                console.error('Fetch error:', error);
+            }
+        },
+        async DelCon(c){
+            const formData = new FormData()
+            formData.append('name',localStorage.getItem('name'))
+            formData.append('token',localStorage.getItem('jwt'))
+            formData.append('challenge_id', c.ID)
+            formData.append('team_id', this.teamid)
+            formData.append('game_id', this.id)
+            
+            try{
+                const response = await fetch(`${Url}/challenge/delcon`, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error('获取连接失败');
+                }
+                const data = await response.json();
+                delete this.Live[c.ID]
+                console.log(this.Live)
             }catch{
                 console.error('Fetch error:', error);
             }

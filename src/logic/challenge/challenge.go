@@ -13,6 +13,7 @@ type Challenge struct {
 	Flags     string `form:"flags" json:"flags"`
 	Desc      string `form:"desc" json:"desc"`
 	GameID    uint
+	Port      string
 }
 
 func GetChallenge() *Challenge {

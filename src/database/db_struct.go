@@ -37,11 +37,12 @@ type Challenge struct {
 	ImageID   uint   `gorm:"not null"`
 	DoneNum   uint   `gorm:"not null"`
 	Score     uint   `gorm:"not null"`
-	FileName  string `gorm:"not null"`
-	ImageName string `gorm:"not null"`
+	FileName  string `gorm:"size:64"`
+	ImageName string `gorm:"size:64"`
 	Flags     string `gorm:"unique;size:512"`
 	Desc      string `gorm:"size:512"`
 	GameID    uint   `gorm:"not null"`
+	Port      string `gorm:"size:64"`
 }
 
 type Image struct {
@@ -53,10 +54,12 @@ type Image struct {
 
 type Container struct {
 	gorm.Model
+	ContainerID string `gorm:"unique;not null;size:64"`
 	Port        string `gorm:"unique;not null;size:256"`
 	Flag        string `gorm:"not null;size:128"`
 	ChallengeID uint   `gorm:"not null"`
-	UserID      uint   `gorm:"not null"`
+	TeamID      uint   `gorm:"not null"`
+	GameID      uint   `gorm:"not null"`
 }
 
 type Game struct {

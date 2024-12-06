@@ -14,6 +14,7 @@ func (r *Router) RouterGame() {
 	d.Use(mid.AuthMid())
 	d.POST("/join", u.Join)
 	d.POST("/show", u.Show)
+	d.POST("/getconinfo", u.GetConInfo)
 
 	s := g.Group("/")
 	s.Use(mid.AuthAdmin())

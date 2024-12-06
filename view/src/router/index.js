@@ -40,6 +40,11 @@ const routes = [
     component: Team
   },
   {
+    path: '/game/:id',
+    name: 'Game',
+    component: Game
+  },
+  {
     path: '/game/:id&:teamid&:teamname',
     name: 'Game',
     component: Game

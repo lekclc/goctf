@@ -1,7 +1,6 @@
 package challenge
 
 import (
-	cfg "src/config"
 	challenge_ "src/logic/challenge"
 
 	"strconv"
@@ -9,11 +8,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (s *Challenge) GetCon(c *gin.Context) {
+func (s *Challenge) DelCon(c *gin.Context) {
 	//获得动态环境
 	challenge_id := c.PostForm("challenge_id")
 	game_id := c.PostForm("game_id")
 	team_id := c.PostForm("team_id")
+	name := c.PostForm("name")
 	challlengeid, err := strconv.ParseUint(challenge_id, 10, 32)
 	if err != nil {
 		c.JSON(400, gin.H{"error": "Invalid challenge_id"})
@@ -31,7 +31,7 @@ func (s *Challenge) GetCon(c *gin.Context) {
 	}
 	challenge := challenge_.GetChallenge()
 
-	res, err := challenge.GetCon(uint(challlengeid), uint(teamid), uint(gameid))
+	err = challenge.DelCon(uint(challlengeid), uint(teamid), uint(gameid), name)
 
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -39,7 +39,5 @@ func (s *Challenge) GetCon(c *gin.Context) {
 	}
 	c.JSON(200, gin.H{
 		"message": "success",
-		"host":    cfg.Cfg.Host.Ip,
-		"port":    res,
 	})
 }

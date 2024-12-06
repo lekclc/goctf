@@ -28,6 +28,10 @@ func (s *Challenge) AddChallenge(c *gin.Context) {
 		})
 		return
 	}
+	port := c.PostForm("port")
+	if port != "" {
+		dc.Port = port
+	}
 
 	dc.MaxScore = uint(maxScore)
 	fmt.Print(maxScore)
@@ -37,6 +41,7 @@ func (s *Challenge) AddChallenge(c *gin.Context) {
 	dc.ImageName = c.PostForm("image_name")
 	dc.Flags = c.PostForm("flags")
 	dc.Desc = c.PostForm("desc")
+
 	gameidStr := c.PostForm("game_id")
 	gameid, err := strconv.ParseUint(gameidStr, 10, 32)
 	if err != nil {

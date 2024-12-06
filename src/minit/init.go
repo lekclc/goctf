@@ -6,6 +6,7 @@ import (
 	"src/ctrl/docker"
 	"src/ctrl/router"
 	database "src/database"
+	challenge_ "src/logic/challenge"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,4 +18,5 @@ func Init(s *gin.Engine) {
 	con.Db.Init()
 	router_ := router.NewRouter(s)
 	router_.RouterInit()
+	go challenge_.Con_check()
 }
