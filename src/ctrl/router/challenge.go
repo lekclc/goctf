@@ -23,6 +23,7 @@ func (r *Router) RouterChallenge() {
 	s.POST("/addchallenge", u.AddChallenge)
 	s.POST("/addflag", u.AddFlag)
 	s.POST("/updateinfo", u.UpdateInfo)
-	s.POST("/upload", u.Upload)
+	s.POST("/updatefile", u.UpdateFile)
+	s.POST("/getallchallengeinfo", u.GetChallengeAllInfo)
 
 }

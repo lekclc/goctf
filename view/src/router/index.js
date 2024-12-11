@@ -7,7 +7,6 @@ import Register from '../views/Register.vue';
 import Team from '../views/Team.vue';
 import Game from '../views/Game.vue';
 import GameList from '../views/GameList.vue';
-import AddChallenge from '../views/AddChallenge.vue';
 const routes = [
   {
     path: '/',
@@ -54,11 +53,6 @@ const routes = [
     name: 'GameList',
     component: GameList
   },
-  {
-    path: '/addchallenge/:id',
-    name: 'AddChallenge',
-    component: AddChallenge
-  }
   
 ];
 

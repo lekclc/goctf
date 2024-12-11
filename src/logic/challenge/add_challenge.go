@@ -30,25 +30,18 @@ func (s *Challenge) AddChallenge() int {
 		dc.Flags = s.Flags + ","
 	}
 	dc.Desc = s.Desc
-	err := db.Create(&dc).Error
-	if err != nil {
-		return 2
-		// return fail
-	}
-
+	var image database.Image
 	if dc.ImageName != "" {
-		var image database.Image
 		db.Where("name = ?", dc.ImageName).First(&image)
 		if image.ID != 0 {
-			return 2
+			return 3
 		}
 		image.Name = dc.ImageName
 		image.Port = dc.Port
 		db.Create(&image)
 		dc.ImageID = image.ID
 	}
-	err = db.Save(&dc).Error
-
+	err := db.Create(&dc).Error
 	if err != nil {
 		return 2
 		// return fail

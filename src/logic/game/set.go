@@ -11,6 +11,9 @@ func (s *Game) Set() (uint, error) {
 	db := con.Db.Db
 	var g database.Game
 	err := db.Where("name = ?", s.Name).First(&g).Error
+	if err != nil {
+		return 0, err
+	}
 	if g.ID != 0 {
 		return 0, errors.New("Game already exists")
 	}

@@ -39,7 +39,7 @@ type Challenge struct {
 	Score     uint   `gorm:"not null"`
 	FileName  string `gorm:"size:64"`
 	ImageName string `gorm:"size:64"`
-	Flags     string `gorm:"unique;size:512"`
+	Flags     string `gorm:"size:512"`
 	Desc      string `gorm:"size:512"`
 	GameID    uint   `gorm:"not null"`
 	Port      string `gorm:"size:64"`

@@ -6,21 +6,24 @@ import (
 	"src/database"
 )
 
-func (s *Challenge) UpdateInfo() error {
+func (s *Challenge) UpdateInfo(challengeid uint) error {
 	db := con.Db.Db
 	var c database.Challenge
-	db.Where("name = ?", s.Name).First(&c)
-	if c.ID == 0 {
+	err := db.Where("id = ?", challengeid).First(&c).Error
+	if err != nil {
 		return errors.New("challenge not found")
 	}
-	if s.Class != "" {
-		c.Class = s.Class
+	if !c.Active {
+		if s.Flags != "" && s.Flags != c.Flags {
+			c.Flags = s.Flags
+		}
+	} else if c.Active {
+		if s.ImageName != "" && s.ImageName != c.ImageName {
+			c.ImageName = s.ImageName
+		}
 	}
-	if s.FileName != "" && s.FileName != c.FileName {
-		c.FileName = s.FileName
-	}
-	if s.ImageName != "" && s.ImageName != c.ImageName {
-		c.ImageName = s.ImageName
+	if s.Port != "" && s.Port != c.Port {
+		c.Port = s.Port
 	}
 	if s.Desc != "" && s.Desc != c.Desc {
 		c.Desc = s.Desc
@@ -28,7 +31,7 @@ func (s *Challenge) UpdateInfo() error {
 	if s.MaxScore != 0 && s.MaxScore != c.MaxScore {
 		c.MaxScore = s.MaxScore
 	}
-	err := db.Save(&c).Error
+	err = db.Save(&c).Error
 	if err != nil {
 		return errors.New("update fail")
 	}

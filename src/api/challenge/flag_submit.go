@@ -2,6 +2,7 @@ package challenge
 
 import (
 	challenge_ "src/logic/challenge"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,11 +11,15 @@ import (
 func (s *Challenge) FlagSubmit(c *gin.Context) {
 	name := c.PostForm("name")
 	flag := c.PostForm("flag")
-	challenge_name := c.PostForm("challenge_name")
+	game_id := c.PostForm("game_id")
+	gameid, _ := strconv.Atoi(game_id)
+	team_id := c.PostForm("team_id")
+	teamid, _ := strconv.Atoi(team_id)
+	challenge_id := c.PostForm("challenge_id")
+	challengeid, _ := strconv.Atoi(challenge_id)
 	var ch challenge_.Challenge
-	ch.Name = challenge_name
 	ch.Flags = flag
-	err := ch.FlagSubmit(name)
+	err := ch.FlagSubmit(uint(gameid), uint(challengeid), uint(teamid), name)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": err.Error(),
