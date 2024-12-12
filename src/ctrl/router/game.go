@@ -9,6 +9,7 @@ func (r *Router) RouterGame() {
 	u := game.NewGame()
 	g := r.s.Group("/game")
 	g.POST("/gamelist", u.GameList)
+	g.POST("/getallteamrank", u.GetAllTeamRank)
 
 	d := g.Group("/")
 	d.Use(mid.AuthMid())

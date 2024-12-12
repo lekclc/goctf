@@ -13,7 +13,7 @@
                 <p>比赛结束时间 {{ game.End }}</p>
                 <button type="button" @click="JmpGame(game)">进入比赛</button>
 
-                <button type="button">查看榜单</button>
+                <button type="button" @click="JmpRank(game)">查看榜单</button>
                 <button type="button" @click="SignUpFirst(game)" v-if="!game.team[0]">报名比赛</button>
                 <span v-if="game.team[0]"> 已经报名 {{this.team_id_name[game.team[0]] }}</span>
                 <div v-if="isadmin">
@@ -247,6 +247,9 @@ export default {
         JmpGame(game) {
             this.$router.push({ name: 'Game', params: { id: game.ID,teamid: game.team[0] ,teamname: this.team_id_name[game.team[0]] } });
         },
+        JmpRank(game){
+            this.$router.push({ name: 'Rank', params: { id: game.ID,page: 1 } });
+        }
     },
 }
 </script>

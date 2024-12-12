@@ -7,6 +7,7 @@ import Register from '../views/Register.vue';
 import Team from '../views/Team.vue';
 import Game from '../views/Game.vue';
 import GameList from '../views/GameList.vue';
+import Rank from '../views/Rank.vue';
 const routes = [
   {
     path: '/',
@@ -53,6 +54,11 @@ const routes = [
     name: 'GameList',
     component: GameList
   },
+  {
+    path: '/rank/:id&:page',
+    name: 'Rank',
+    component: Rank
+  }
   
 ];
 

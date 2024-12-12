@@ -9,9 +9,23 @@
                 <h1>{{ this.game.Name }}</h1>
                 <div id="teamhead">
                     <h2>
-                        {{ this.teamname }}
+                        <span>
+                            队伍 :
+                            {{ this.teamname }}
+                        </span>
+                        <br>
+                        <span>
+                            总分:
+                            {{ this.team.score }}
+                        </span>
+                        
+                        <span>
+                            排名:
+                            {{ this.team.rank }}
+                        </span>
                     </h2>
                 </div>
+
             </div>
             <div class="divider"></div>
 
@@ -188,6 +202,7 @@ export default {
             id: '',
             teamname: '',
             teamid: '',
+            team: {},
             game: {},
             challenge: [],
             Pwn: [],
@@ -411,6 +426,8 @@ export default {
                     throw new Error('获取队伍信息失败');
                 }
                 const data = await response.json();
+                this.team = data;
+                console.log(this.team)
                 for (let i = 0; i < data.challenge.length; i++) {
                     let id = parseInt(data.challenge[i], 10)
                     this.Done.set(id, 1)
@@ -465,47 +482,47 @@ export default {
             this.file_show = this.is_file;
         },
         async downloadFile(c) {
-    const fromData = new FormData();
-    fromData.append('name', localStorage.getItem('name'));
-    fromData.append('token', localStorage.getItem('jwt'));
-    fromData.append('challenge_id', c.ID);
+            const fromData = new FormData();
+            fromData.append('name', localStorage.getItem('name'));
+            fromData.append('token', localStorage.getItem('jwt'));
+            fromData.append('challenge_id', c.ID);
 
-    try {
-        const response = await fetch(Url + '/challenge/getfile', {
-            method: 'POST',
-            body: fromData,
-        });
+            try {
+                const response = await fetch(Url + '/challenge/getfile', {
+                    method: 'POST',
+                    body: fromData,
+                });
 
-        if (!response.ok) {
-            throw new Error('网络请求失败，状态码: ' + response.statusText);
+                if (!response.ok) {
+                    throw new Error('网络请求失败，状态码: ' + response.statusText);
+                }
+
+                const blob = await response.blob();
+
+                // 使用 this.s.FileName 作为文件名
+                const fileName = this.s?.FileName || "默认文件名";
+
+                // 创建一个隐藏的 a 标签用于触发下载
+                const downloadElement = document.createElement("a");
+                const href = window.URL.createObjectURL(blob);
+                downloadElement.href = href;
+                downloadElement.download = c.FileName
+                downloadElement.style.display = "none";
+
+                // 将元素添加到页面并触发点击事件
+                document.body.appendChild(downloadElement);
+                downloadElement.click();
+                document.body.removeChild(downloadElement);
+
+                // 释放 URL
+                window.URL.revokeObjectURL(href);
+            } catch (error) {
+                console.error('下载出错:', error);
+            }
         }
 
-        const blob = await response.blob();
 
-        // 使用 this.s.FileName 作为文件名
-        const fileName = this.s?.FileName || "默认文件名";
-
-        // 创建一个隐藏的 a 标签用于触发下载
-        const downloadElement = document.createElement("a");
-        const href = window.URL.createObjectURL(blob);
-        downloadElement.href = href;
-        downloadElement.download = c.FileName
-        downloadElement.style.display = "none";
-
-        // 将元素添加到页面并触发点击事件
-        document.body.appendChild(downloadElement);
-        downloadElement.click();
-        document.body.removeChild(downloadElement);
-
-        // 释放 URL
-        window.URL.revokeObjectURL(href);
-    } catch (error) {
-        console.error('下载出错:', error);
-    }
-}
-
-
-,
+        ,
         handleFileUpload(event) {
             this.file = event.target.files[0];
         },

@@ -47,5 +47,6 @@ func (s *Team) Info(c *gin.Context) {
 		"challenge": challenge,
 		"gameID":    msg["gameid"],
 		"key":       msg["key"],
+		"rank":      msg["rank"],
 	})
 }
