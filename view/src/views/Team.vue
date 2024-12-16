@@ -20,8 +20,8 @@
                     <p>队员 {{ member_ }}</p>
                 </div>
             </div>
-            <button type="button" @click="teamInfoUpdate">修改信息</button>
-            <button type="button" @click="teamMemberOut">踢出成员</button>
+            <button type="button" @click="teamInfoUpdate(team_)">修改信息</button>
+            <button type="button" @click="teamMemberOut(team_)">踢出成员</button>
         </div>
     </div>
       </ul>
@@ -62,6 +62,46 @@
                 </form>
             </div>
         </div>
+        <div v-if="showModalEdit" class="modal">
+            <div class="modal-content">
+                <span class="close" @click="closeModal">&times;</span>
+                <h2>修改信息</h2>
+                <form @submit.prevent="teamInfoUpdate_">
+                <div>
+                    <label for="teamName">队伍名称:</label>
+                    <input type="text" v-model="editTeamName" id="teamName" required />
+                </div>
+                <div>
+                    <label for="teamDesc">队伍描述:</label>
+                    <input type="text" v-model="editTeamDesc" id="teamDesc" required />
+                </div>
+                <div>
+                    <label for="active">是否刷新key:</label>
+                    <input type="checkbox" id="Active" v-model="editTeamKey">
+                </div>
+                <button  type="submit">提交</button>
+                <button type="button" @click="closeModal">取消</button>
+                </form>
+            </div>
+        </div>
+        <div v-if="showModalOut" class="modal">
+            <div class="modal-content">
+                <span class="close" @click="closeModal">&times;</span>
+                <h2>踢出成员</h2>
+                <form @submit.prevent="teamMemberOut_">
+                    <div>
+                        <label for="teamSelect">选择成员:</label>
+                        <select id="teamSelect" v-model="selectedTeamMember" required>
+                            <option v-for="member in this.fteam.members">
+                                {{ member }}
+                            </option>
+                        </select>
+                    </div>
+                    <button type="submit">提交</button>
+                    <button type="button" @click="closeModal">取消</button>
+                </form>
+            </div>
+        </div>
 </template>
 
 <script>
@@ -72,8 +112,11 @@ export default {
         return{
             team: [],
             newTeam: {},
+            fteam: {},
             showModaladd: false, 
             showModaljoin: false,
+            showModalEdit: false,
+            showModalOut: false,
         };
     },
     async created(){
@@ -166,12 +209,50 @@ export default {
         closeModal(){
             this.showModaladd=false
             this.showModaljoin=false
+            this.showModalEdit=false
+            this.showModalOut=false
         },
-        async teamInfoUpdate(){
-
+        teamInfoUpdate(t){
+            this.showModalEdit=true
+            this.fteam=t
+            this.editTeamDesc=t.desc
+            this.editTeamName=t.name
         },
-        async teamMemberOut(){
-
+        async teamInfoUpdate_(){
+            const formData = new FormData()
+            formData.append('team_id',this.fteam.id)
+            formData.append('new_team_name',this.editTeamName)
+            formData.append('new_team_desc',this.editTeamDesc)
+            formData.append('key',this.editTeamKey)
+            formData.append('name',localStorage.getItem('name'))
+            formData.append('token',localStorage.getItem('jwt'))
+            try {
+                const response = await fetch(`${Url}/team/updateinfo`, {
+                    method: 'POST',
+                    body: formData
+                });
+            }catch(error){
+                console.error('Fetch error:', error);
+            }
+        },
+        teamMemberOut(t){
+            this.showModalOut=true
+            this.fteam=t
+        },
+        async teamMemberOut_(){
+            const formData = new FormData()
+            formData.append('team',this.fteam.name)
+            formData.append('name',localStorage.getItem('name'))
+            formData.append('token',localStorage.getItem('jwt'))
+            formData.append('out',this.selectedTeamMember)
+            try {
+                const response = await fetch(`${Url}/team/out`, {
+                    method: 'POST',
+                    body: formData
+                });
+            }catch(error){
+                console.error('Fetch error:', error);
+            }
         },
     }
 }
@@ -187,7 +268,7 @@ export default {
 #team_info {
   padding: 20px;
   margin: 10px 0;
-  width: 300px;
+  width: 330px;
   border: 1px solid #ccc; /* 添加边框 */
   border-radius: 5px; /* 添加圆角 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影 */

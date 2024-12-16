@@ -9,9 +9,10 @@ import (
 
 func (s *User) Update(c *gin.Context) {
 	name := c.PostForm("name")
-	passwd := c.PostForm("passwd")
+	passwd := c.PostForm("old_passwd")
+	newpasswd := c.PostForm("new_passwd")
 	u := user_.GetUser(name, passwd)
-	err := u.Update()
+	err := u.Update(newpasswd)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": err,
