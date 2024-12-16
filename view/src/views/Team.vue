@@ -20,9 +20,8 @@
                     <p>队员 {{ member_ }}</p>
                 </div>
             </div>
-            <button type="button">修改信息</button>
-            <button type="button">退出队伍</button>
-            <button type="button">踢出成员</button>
+            <button type="button" @click="teamInfoUpdate">修改信息</button>
+            <button type="button" @click="teamMemberOut">踢出成员</button>
         </div>
     </div>
       </ul>
@@ -167,6 +166,12 @@ export default {
         closeModal(){
             this.showModaladd=false
             this.showModaljoin=false
+        },
+        async teamInfoUpdate(){
+
+        },
+        async teamMemberOut(){
+
         },
     }
 }

@@ -1,24 +1,24 @@
 package team_
 
 import (
+	"errors"
 	con "src/const"
 	"src/database"
 	"strconv"
 	"strings"
 )
 
-func (s *Team) Out(name string) uint {
+func (s *Team) Out(name string) error {
 	db := con.Db.Db
 	var user database.User
 	var team database.Team
-	db.Where("name = ? ", s.Name).First(&team)
-	if team.ID == 0 || team.Leader != s.Leader {
-		return 1
-		// message : team not found
+	err := db.Where("name = ? ", s.Name).First(&team).Error
+	if err != nil || team.Leader != s.Leader {
+		return err
 	}
-	db.Where("name = ?", name).First(&user)
-	if user.ID == 0 {
-		return 2
+	err = db.Where("name = ?", name).First(&user).Error
+	if err != nil {
+		return err
 		// message : user not found
 	}
 	members := strings.Split(team.Member, ",")
@@ -29,13 +29,12 @@ func (s *Team) Out(name string) uint {
 			team.Member = strings.Join(members, ",")
 			team.MemberNum--
 			is = false
-
 			break
 		}
 
 	}
 	if is {
-		return 3
+		return errors.New("user not found")
 	}
 	is = true
 	teams := strings.Split(user.Team, ",")
@@ -49,12 +48,9 @@ func (s *Team) Out(name string) uint {
 		}
 	}
 	if is {
-		return 4
-	}
-	if is {
-		return 5
+		return errors.New("user update err")
 	}
 	db.Save(&team)
 	db.Save(&user)
-	return 0
+	return nil
 }

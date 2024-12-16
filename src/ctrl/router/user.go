@@ -15,4 +15,5 @@ func (r *Router) RouterUser() {
 	s.Use(mid.AuthMid())
 	s.POST("/logout", u.Logout)
 	s.POST("/info", u.Info)
+	s.POST("/update", u.Update)
 }

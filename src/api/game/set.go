@@ -33,7 +33,7 @@ func (s *Game) Set(c *gin.Context) {
 	g.Name = name
 	g.Desc = desc
 	id, err := g.Set()
-	if id == 0 || err != nil {
+	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
