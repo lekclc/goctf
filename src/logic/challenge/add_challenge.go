@@ -1,19 +1,20 @@
 package challenge_
 
 import (
+	"fmt"
 	con "src/const"
 	"src/database"
 )
 
-func (s *Challenge) AddChallenge() int {
+func (s *Challenge) AddChallenge() error {
 
 	db := con.Db.Db
 	var dc database.Challenge
-	db.Where("name = ?", s.Name).First(&dc)
+	err := db.Where("name = ?", s.Name).First(&dc).Error
 	if dc.ID != 0 {
-		return 1
-		// return challenge exist
+		return err
 	}
+
 	dc.Class = s.Class
 	dc.Name = s.Name
 	dc.Active = s.Active
@@ -31,22 +32,26 @@ func (s *Challenge) AddChallenge() int {
 	}
 	dc.Desc = s.Desc
 	var image database.Image
-	if dc.ImageName != "" {
-		db.Where("name = ?", dc.ImageName).First(&image)
-		if image.ID != 0 {
-			return 3
+
+	if dc.Active {
+		if dc.ImageName != "" {
+			err = db.Where("name = ?", dc.ImageName).First(&image).Error
+			if image.ID != 0 {
+				return err
+			}
+			image.Name = dc.ImageName
+			image.Port = dc.Port
+			db.Create(&image)
+			dc.ImageID = image.ID
 		}
-		image.Name = dc.ImageName
-		image.Port = dc.Port
-		db.Create(&image)
-		dc.ImageID = image.ID
 	}
-	err := db.Create(&dc).Error
+	err = db.Create(&dc).Error
 	if err != nil {
-		return 2
+		return err
 		// return fail
 	}
-	return 0
-	//return success or fail
+	fmt.Println("success")
+	return nil
+	//return success
 
 }

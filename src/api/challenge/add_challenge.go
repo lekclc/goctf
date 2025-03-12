@@ -1,7 +1,6 @@
 package challenge
 
 import (
-	"fmt"
 	challenge_ "src/logic/challenge"
 	"strconv"
 
@@ -34,7 +33,6 @@ func (s *Challenge) AddChallenge(c *gin.Context) {
 	}
 
 	dc.MaxScore = uint(maxScore)
-	fmt.Print(maxScore)
 	dc.ImageID = 0
 	dc.DoneNum = 0
 	dc.Score = 0
@@ -53,21 +51,13 @@ func (s *Challenge) AddChallenge(c *gin.Context) {
 
 	dc.GameID = uint(gameid)
 	status := dc.AddChallenge()
-	if status == 1 {
+	if status != nil {
 		c.JSON(400, gin.H{
-			"message": "challenge exist",
+			"message": status,
 		})
-	} else if status == 2 {
-		c.JSON(400, gin.H{
-			"message": "error",
-		})
-	} else if status == 0 {
-		c.JSON(200, gin.H{
-			"message": "success",
-		})
-	} else {
-		c.JSON(400, gin.H{
-			"message": "error",
-		})
+		return
 	}
+	c.JSON(200, gin.H{
+		"message": "success",
+	})
 }
