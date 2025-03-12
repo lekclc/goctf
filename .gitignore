@@ -4,3 +4,4 @@
 /.vscode
 /view/node_modules
 /src/tmp
+/view/*
