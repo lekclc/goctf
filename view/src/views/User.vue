@@ -108,6 +108,9 @@ export default {
     update() {
       this.showModalUpdate = true;
     },
+    closeModal(){
+      this.showModalUpdate = false;
+    },
     async update_submit() {
       const formData = new FormData();
       formData.append('name', localStorage.getItem('name'));

@@ -1,5 +1,5 @@
 host:
-    ip: 192.168.110.132
+    ip: 192.168.110.134
     port: 8000
 db:
     uname: root
@@ -8,7 +8,7 @@ db:
     ip: 127.0.0.1
     port: 13306
     str: ""
-    cname: mysql18371902
+    cname: mysql439138121
 admin:
     uname: admin
     passwd: admin

@@ -11,6 +11,9 @@ func (r *Router) RouterGame() {
 	g.POST("/gamelist", u.GameList)
 	g.POST("/getallteamrank", u.GetAllTeamRank)
 
+	a := g.Group("/")
+	a.POST("/gettalk", u.GetTalk)
+
 	d := g.Group("/")
 	d.Use(mid.AuthMid())
 	d.POST("/join", u.Join)
@@ -20,5 +23,5 @@ func (r *Router) RouterGame() {
 	s := g.Group("/")
 	s.Use(mid.AuthAdmin())
 	s.POST("/set", u.Set)
-	s.POST("/talk", u.Talk)
+	s.POST("/talk", u.NewTalk)
 }

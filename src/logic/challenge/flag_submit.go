@@ -52,13 +52,15 @@ func (s *Challenge) FlagSubmit(gameid uint, challengeid uint, teamid uint, name 
 			//正确
 			t.Challenge = t.Challenge + strconv.Itoa(int(c.ID)) + ","
 			t.Score = t.Score + c.Score
-			c.DoneNum = c.DoneNum + 1
-			if c.Score > 100 {
-				c.Score = c.Score - 10
-			}
 			//更新分数
 			db.Save(&t)
-			db.Save(&c)
+			err = db.Exec(
+				"CALL UpdateChallengeAfterSolve(?)",
+				c.ID,
+			).Error
+			if err != nil {
+				return err
+			}
 			return nil
 		} else {
 			return errors.New("flag error")
