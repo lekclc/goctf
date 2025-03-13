@@ -1,7 +1,8 @@
-/src/data/mysql/data/**
-/src/data/mysql/log/**
+!/src/data/mysql/data/ctf/
+!/src/data/mysql/data/ctf/**
+/src/data/mysql/data/*
+/src/data/mysql/log/*
 /src/data/file/*
 /.vscode
 /view/node_modules
 /src/tmp
-/view/*
