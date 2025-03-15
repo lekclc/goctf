@@ -16,4 +16,5 @@ func (r *Router) RouterTeam() {
 	d.POST("/join", u.Join)
 	d.POST("/info", u.Info)
 	g.POST("/updateinfo", u.UpdateInfo)
+	g.POST("/del", u.Del)
 }

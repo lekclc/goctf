@@ -25,5 +25,6 @@ func (r *Router) RouterChallenge() {
 	s.POST("/updateinfo", u.UpdateInfo)
 	s.POST("/updatefile", u.UpdateFile)
 	s.POST("/getallchallengeinfo", u.GetChallengeAllInfo)
+	s.POST("/del", u.Del)
 
 }
