@@ -69,3 +69,16 @@ type Game struct {
 	End   time.Time
 	Desc  string `gorm:"size:512"`
 }
+
+type Talk struct {
+	gorm.Model
+	GameID uint   `gorm:"not null"`
+	Talk   string `gorm:"size:512"`
+}
+
+type Note struct {
+	gorm.Model
+	UserId uint   `gorm:"not null"`
+	Name   string `gorm:"size:64"`
+	Path   string `gorm:"size:128"`
+}

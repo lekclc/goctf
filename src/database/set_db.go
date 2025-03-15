@@ -16,6 +16,8 @@ func (db *Db) Set_db() {
 	db.Db.AutoMigrate(&Image{})
 	db.Db.AutoMigrate(&Container{})
 	db.Db.AutoMigrate(&Game{})
+	db.Db.AutoMigrate(&Talk{})
+	db.Db.AutoMigrate(&Note{})
 	var user User
 	user.Name = cfg.Cfg.Admin.Uname
 	user.Passwd, _ = utils.Hash_passwd(cfg.Cfg.Admin.Passwd)
