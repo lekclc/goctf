@@ -9,4 +9,5 @@ func (r *Router) RouterInit() {
 	r.RouterTeam()
 	r.RouterGame()
 	r.RouterChallenge()
+	r.RouterNote()
 }
