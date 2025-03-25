@@ -16,6 +16,9 @@ func (s *Game) Set(c *gin.Context) {
 	name := c.PostForm("game")
 	desc := c.PostForm("desc")
 	id_ := c.PostForm("id")
+	if id_ == "" {
+		id_ = "0"
+	}
 	parsedID, err := strconv.ParseUint(id_, 10, 64)
 	if err != nil {
 		c.JSON(400, gin.H{"error": "Invalid ID format"})
