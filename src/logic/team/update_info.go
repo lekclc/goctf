@@ -5,6 +5,7 @@ import (
 	"fmt"
 	con "src/const"
 	"src/database"
+	"time"
 )
 
 func (s *Team) UpdateInfo(iskey bool) error {
@@ -18,8 +19,7 @@ func (s *Team) UpdateInfo(iskey bool) error {
 	t.Name = s.Name
 	t.Desc = s.Desc
 	if iskey {
-		var new_key string
-		new_key = fmt.Sprintf("%x", md5.Sum([]byte(new_key)))
+		new_key := fmt.Sprintf("%x", md5.Sum([]byte(time.Now().String()+t.Name+t.Key)))
 		t.Key = new_key
 	}
 	err = db.Save(&t).Error
