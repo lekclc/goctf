@@ -28,7 +28,7 @@ func (s *Team) UpdateInfo(c *gin.Context) {
 	if iskey == "true" {
 		is_key = true
 	}
-	err = t.UpdateInfo(is_key)
+	key, err := t.UpdateInfo(is_key)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": err,
@@ -37,6 +37,7 @@ func (s *Team) UpdateInfo(c *gin.Context) {
 	}
 	c.JSON(200, gin.H{
 		"message": "success",
+		"key":     key,
 	})
 
 }
