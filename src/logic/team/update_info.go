@@ -8,13 +8,13 @@ import (
 	"time"
 )
 
-func (s *Team) UpdateInfo(iskey bool) error {
+func (s *Team) UpdateInfo(iskey bool) (string, error) {
 	var t database.Team
 	db := con.Db.Db
 
 	err := db.Where("id = ?", s.ID).First(&t).Error
 	if err != nil {
-		return err
+		return "", err
 	}
 	t.Name = s.Name
 	t.Desc = s.Desc
@@ -24,7 +24,7 @@ func (s *Team) UpdateInfo(iskey bool) error {
 	}
 	err = db.Save(&t).Error
 	if err != nil {
-		return err
+		return "", err
 	}
-	return nil
+	return t.Key, nil
 }
