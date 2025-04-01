@@ -81,4 +81,5 @@ type Note struct {
 	UserId uint   `gorm:"not null"`
 	Name   string `gorm:"size:64"`
 	Path   string `gorm:"size:128"`
+	Public bool   `gorm:"not null,default:false"`
 }

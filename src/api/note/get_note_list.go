@@ -7,8 +7,12 @@ import (
 )
 
 func (s *Note) GetNoteList(c *gin.Context) {
-	//name 接受参数用户名,置空获取所以note
+	//mode置空获取所以note
 	name := c.PostForm("name")
+	mode := c.PostForm("mode")
+	if mode != "" {
+		name = ""
+	}
 	var n note_.Note
 	res, err := n.GetNoteList(name)
 	if err != nil {

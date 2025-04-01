@@ -2,7 +2,7 @@ package note_
 
 import (
 	"encoding/base64"
-	"io/ioutil"
+	"os"
 	con "src/const"
 	"src/database"
 )
@@ -16,7 +16,7 @@ func (s *Note) GetNote(id uint) (string, error) {
 	if err := tx.Where("id = ?", id).First(&n).Error; err != nil {
 		return "", err
 	}
-	data, err := ioutil.ReadFile(n.Path)
+	data, err := os.ReadFile(n.Path)
 	if err != nil {
 		return "", err
 	}
