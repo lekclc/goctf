@@ -28,14 +28,19 @@ func (g *Game) GameList() (map[string]GameInfo, error) {
 	}
 	// 将查询结果添加到返回值中
 	for _, game := range games {
+		location, _ := time.LoadLocation("Asia/Shanghai") // UTC+8 时区
+		startTime, _ := time.ParseInLocation("2006-01-02 15:04:05", game.Start.Format("2006-01-02 15:04:05"), location)
+		g.Start = startTime
+		endTime, _ := time.ParseInLocation("2006-01-02 15:04:05", game.End.Format("2006-01-02 15:04:05"), location)
 		res[fmt.Sprintf("%d", game.ID)] = GameInfo{
 			Name:  game.Name,
 			Desc:  game.Desc,
-			Start: game.Start,
-			End:   game.End,
+			Start: startTime,
+			End:   endTime,
 			ID:    game.ID,
 		}
 	}
+	fmt.Println("GameList:", res)
 
 	return res, nil
 }
